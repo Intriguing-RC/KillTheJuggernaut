@@ -1,4 +1,4 @@
 .idea
 server
 target
-.iml
+*.iml
