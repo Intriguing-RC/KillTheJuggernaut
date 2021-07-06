@@ -2,9 +2,12 @@ package me.intriguing.juggernautevent.managers;
 
 import me.intriguing.juggernautevent.Core;
 import me.intriguing.juggernautevent.util.Config;
+import me.intriguing.juggernautevent.util.ConfigurableLocation;
+import org.bukkit.Location;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 public class SettingsManager {
 
@@ -15,6 +18,7 @@ public class SettingsManager {
     public String failedReloadMessage;
     public String noPermissionMessage;
     public String actionBarAwaiting;
+    public Location waitingRoomLocation;
 
     public void init() {
         plugin.getLogger().info("Loading configurations...");
@@ -38,6 +42,7 @@ public class SettingsManager {
         reloadMessage = config.getString("messages.reload");
         failedReloadMessage = config.getString("messages.failed-reload");
         actionBarAwaiting = config.getString("messages.action-bar-awaiting");
+        waitingRoomLocation = new ConfigurableLocation(Objects.requireNonNull(config.getConfigurationSection("waiting arena location"))).getLocation();
     }
 
     public boolean reloadConfiguration() {

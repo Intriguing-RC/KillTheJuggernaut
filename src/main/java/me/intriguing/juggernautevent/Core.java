@@ -6,9 +6,9 @@ import me.intriguing.juggernautevent.commands.HelpCommand;
 import me.intriguing.juggernautevent.commands.ReloadCommand;
 import me.intriguing.juggernautevent.commands.StartCommand;
 import me.intriguing.juggernautevent.hooks.PlaceholderAPIHook;
+import me.intriguing.juggernautevent.listeners.EventRunning;
 import me.intriguing.juggernautevent.managers.EventManager;
 import me.intriguing.juggernautevent.managers.SettingsManager;
-import me.intriguing.juggernautevent.util.Config;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -21,7 +21,6 @@ public class Core extends JavaPlugin {
 
     @Getter private static Core plugin;
     @Getter private EventManager eventManager;
-    @Getter private Config config;
     @Getter private SettingsManager settingsManager;
     private BukkitAudiences adventure;
 
@@ -37,8 +36,10 @@ public class Core extends JavaPlugin {
 
         this.adventure = BukkitAudiences.create(this);
         this.settingsManager = new SettingsManager();
+        this.eventManager = new EventManager();
         settingsManager.init();
 
+        this.registerEvents();
         this.registerCommands();
         this.notRunningActionBar();
     }
@@ -59,6 +60,10 @@ public class Core extends JavaPlugin {
         baseCommand.registerSubCommand(new StartCommand());
         baseCommand.registerSubCommand(new HelpCommand());
         baseCommand.registerSubCommand(new ReloadCommand());
+    }
+
+    private void registerEvents() {
+        this.getServer().getPluginManager().registerEvents(new EventRunning(), this);
     }
 
     @Override
