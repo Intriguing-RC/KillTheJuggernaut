@@ -1,0 +1,7 @@
+name: ${project.artifactId}
+api-version: ${api-version}
+main: ${project.groupId}.Core
+depend: [PlaceholderAPI]
+author: ${author}
+version: ${project.version}
+commands: {event: {}}

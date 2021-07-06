@@ -1,0 +1,43 @@
+# Jaggernaut Event Plugin
+# Plugin is meant to be used on The Plonk SMP on a Standalone Server
+
+# Waiting Arena Location
+waiting arena location: {world: spawn, x: 3, y: 60, z: 100, yaw: 0, pitch: 0}
+# PvP Arena Settings
+pvp arena:
+  # Spawn Location
+  spawn location: {world: spawn, x: 3, y: 60, z: 100, yaw: 0, pitch: 0}
+countdown:
+  # Countdown Time
+  # When someone runs /event start, it will teleport them to the PvP Arena, though they won't be able to move
+  # If someone joins during the countdown time, they can still play, otherwise, if they try to join after the
+  # countdown time, they won't be able to play.
+
+  # Time in seconds
+  time: 60
+  # Notify at (When to notify for countdown, all numbers must be less than or equal to time otherwise error, and greater than 0).
+  notify at: [60, 30, 10, 5, 3, 2, 1]
+# Please refer to this image for slots https://wiki.vg/images/1/13/Inventory-slots.png
+# Refer to the below example on how to make items
+items:
+  juggernaut:
+    - slot: 5
+      item: DIAMOND_HELMET
+      flags:
+        name: Cool
+        enchantments:
+          - UNBREAKING;3
+    - slot: 6
+      item: DIAMOND_CHESTPLATE
+  normal:
+    - slot: 5
+      item: LEATHER_HELMET
+    - slot: 36
+      item: WOOD_SWORD
+      flags:
+        name: Normal Sword
+
+messages:
+  help:
+  - '<green>help menu'
+  no-permission: '<red><bold>You don''t have permission to run this command!'
