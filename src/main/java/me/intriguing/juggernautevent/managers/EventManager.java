@@ -11,7 +11,7 @@ public class EventManager {
     }
 
     public void start() {
-
+        this.running = true;
     }
 
 }

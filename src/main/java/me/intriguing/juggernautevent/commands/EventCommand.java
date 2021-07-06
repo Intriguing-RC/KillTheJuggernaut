@@ -3,7 +3,6 @@ package me.intriguing.juggernautevent.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,19 +14,18 @@ public class EventCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (sender instanceof Player player) {
-            if (args.length > 0) {
-                String trySubCommand = args[0];
-                if (!trySubCommand.equalsIgnoreCase("help") && subCommands.containsKey(trySubCommand.toLowerCase())) {
-                    subCommands.get(trySubCommand.toLowerCase()).onCommand(player, Arrays.copyOfRange(args, 1, args.length));
-                }
+        if (args.length > 0) {
+            String trySubCommand = args[0];
+            if (!trySubCommand.equalsIgnoreCase("help") && subCommands.containsKey(trySubCommand.toLowerCase())) {
+                subCommands.get(trySubCommand.toLowerCase()).onCommand(sender, Arrays.copyOfRange(args, 1, args.length));
+                return true;
             }
 
-            subCommands.get("help").onCommand(player, null);
-            return true;
+
         }
 
-        return false;
+        subCommands.get("help").onCommand(sender, null);
+        return true;
     }
 
     public void registerSubCommand(SubCommand command) {

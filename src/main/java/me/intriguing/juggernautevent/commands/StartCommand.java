@@ -1,6 +1,6 @@
 package me.intriguing.juggernautevent.commands;
 
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class StartCommand extends SubCommand {
 
@@ -11,7 +11,7 @@ public class StartCommand extends SubCommand {
     }
 
     @Override
-    public void onCommand(Player player, String[] args) {
+    public void onCommand(CommandSender sender, String[] args) {
 
     }
 }
