@@ -4,6 +4,7 @@ import me.intriguing.juggernautevent.Core;
 import me.intriguing.juggernautevent.util.Config;
 import me.intriguing.juggernautevent.util.ConfigurableLocation;
 import org.bukkit.Location;
+import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.File;
 import java.util.*;
@@ -20,8 +21,9 @@ public class SettingsManager {
     public Location waitingRoomLocation;
     public Location arenaSpawnLocation;
     public long countDownTime;
-    public List<Map<?, ?>> juggernautInventory;
     public Set<Long> notifyTimes;
+    public ConfigurationSection juggernautInventory;
+    public ConfigurationSection normalInventory;
 
     public void init() {
         plugin.getLogger().info("Loading configurations...");
@@ -49,7 +51,8 @@ public class SettingsManager {
         arenaSpawnLocation = new ConfigurableLocation(Objects.requireNonNull(config.getConfigurationSection("pvp arena.spawn location"))).getLocation();
         countDownTime = config.getLong("countdown.time");
         notifyTimes = new HashSet<>(config.getLongList("countdown.notify at"));
-        juggernautInventory = config.getMapList("items.juggernaut");
+        juggernautInventory = config.getConfigurationSection("items.juggernaut");
+        normalInventory = config.getConfigurationSection("items.normal");
     }
 
     public boolean reloadConfiguration() {

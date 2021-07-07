@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -55,7 +56,23 @@ public class EventRunning implements Listener {
         if (!plugin.getEventManager().isGameStarted()) return;
 
         if (e.getPlayer() == plugin.getEventManager().getJuggernaut()) {
-            plugin.getEventManager().pickNewJuggernaut();
+            plugin.getEventManager().pickRandomJuggernaut();
+        }
+    }
+
+    @EventHandler
+    public void playerDeathHandler(PlayerDeathEvent e) {
+
+        e.getEntity().spigot().respawn();
+
+        Player killer = e.getEntity().getKiller();
+        Player player = e.getEntity();
+
+        if (plugin.getEventManager().isGameStarted() && killer != null) {
+            plugin.getEventManager().setJuggernaut(killer);
+            plugin.getEventManager().setJuggernautArmor();
+
+            plugin.getEventManager().setNormalArmor(player);
         }
     }
 

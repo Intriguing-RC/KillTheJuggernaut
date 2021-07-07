@@ -21,8 +21,15 @@ countdown:
 # Refer to the below example on how to make items
 items:
   juggernaut:
-    - slot: 5
-      ==: org.bukkit.inventory.itemstack
+    'offhand':
+      type: DIAMOND_HELMET
+      slot: 36
+      name: Cool Armor
+      lore:
+      - Test
+      - Test
+      enchantments:
+        DURABILITY: 1
 
   normal:
     - slot: 5

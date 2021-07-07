@@ -40,18 +40,30 @@ public class EventManager {
         plugin.getTasks().get("actionbar").cancel();
         plugin.getTasks().remove("actionbar");
 
-        timer = new CountdownTimer(plugin.getSettingsManager().countDownTime, plugin.getSettingsManager().notifyTimes);
+        timer = new CountdownTimer(plugin.getSettingsManager().countDownTime, plugin.getSettingsManager().notifyTimes, () -> {
+            plugin.getEventManager().pickInitialRandomJuggernaut();
+            plugin.getEventManager().gameEnd();
+        });
         timer.start();
         // Do not run below until game started.
     }
 
-    public void pickJuggernaut() {
+    // This method is here, and not just all
+    // in this#pickRandomJuggernaut because EventListeners calls pickRandomJuggnaut
+    // and it will not be null.
+    public void pickInitialRandomJuggernaut() {
         if (juggernaut == null) {
-            pickNewJuggernaut();
+            pickRandomJuggernaut();
         }
     }
 
-    public void pickNewJuggernaut() {
+    public void setJuggernaut(Player player) {
+        this.juggernaut = player;
+
+        Bukkit.getLogger().info("Juggernaut is now set to " + juggernaut.getName());
+    }
+
+    public void pickRandomJuggernaut() {
         juggernaut = Bukkit.getOnlinePlayers()
                 .stream()
                 .skip((int) (Bukkit.getOnlinePlayers().size() * Math.random()))
@@ -65,6 +77,27 @@ public class EventManager {
         Bukkit.getLogger().info("Juggernaut is now set to " + juggernaut.getName());
     }
 
+    public void setJuggernautArmor() {
+        this.juggernaut.getInventory().clear();
+        InventoryManager.getJuggernautInventory().forEach((slot, item) ->
+                this.juggernaut.getInventory().setItem(slot, item));
+    }
+
+    public void setAllNormalArmor() {
+        plugin.getServer().getOnlinePlayers().forEach(this::setNormalArmor);
+    }
+
+    public void setNormalArmor(Player player) {
+        if (player == juggernaut) {
+            return;
+        }
+
+        player.getInventory().clear();
+        InventoryManager.getNormalInventory().forEach((slot, item) ->
+                player.getInventory().setItem(slot, item));
+    }
+
+
     public void beginGame() {
         this.gameStarted = true;
 
@@ -76,7 +109,8 @@ public class EventManager {
             }
         }.runTaskLater(plugin, 20L * gameDuration.toSeconds()));
 
-
+        this.setJuggernautArmor();
+        this.setAllNormalArmor();
 
     }
 
@@ -85,7 +119,10 @@ public class EventManager {
         this.running = false;
 
         plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("Ending event..."));
-        Bukkit.getOnlinePlayers().forEach(player -> plugin.getEventListener().teleportPlayerToSpawn(player));
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            plugin.getEventListener().teleportPlayerToSpawn(player);
+            player.getInventory().clear();
+        });
         // Restart awaiting action bar event after game ends
         plugin.getTasks().put("actionbar", plugin.notRunningActionBar());
     }
