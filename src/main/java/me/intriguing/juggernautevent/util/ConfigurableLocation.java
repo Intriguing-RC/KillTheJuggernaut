@@ -33,5 +33,12 @@ public class ConfigurableLocation {
             throw new RuntimeException("Block below is air! Location: " + locationString);
         }
 
+        if (location.clone().add(0, 1, 0).getBlock().getType() != Material.AIR || location.getBlock().getType() != Material.AIR) {
+            String locationString = location.toString();
+            location = null;
+            throw new RuntimeException("There is no room for the player at the location! Location: " + locationString);
+
+        }
+
     }
 }

@@ -6,8 +6,7 @@ import me.intriguing.juggernautevent.util.ConfigurableLocation;
 import org.bukkit.Location;
 
 import java.io.File;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class SettingsManager {
 
@@ -19,6 +18,10 @@ public class SettingsManager {
     public String noPermissionMessage;
     public String actionBarAwaiting;
     public Location waitingRoomLocation;
+    public Location arenaSpawnLocation;
+    public long countDownTime;
+    public List<Map<?, ?>> juggernautInventory;
+    public Set<Long> notifyTimes;
 
     public void init() {
         plugin.getLogger().info("Loading configurations...");
@@ -31,7 +34,7 @@ public class SettingsManager {
         config = Config.loadConfiguration(file);
         try {
             config.syncWithConfig(file, plugin.getResource("config.yml"));
-            plugin.getLogger().info("Loaded configurations...");
+            plugin.getLogger().info("Loaded configurations.");
         } catch (Exception e) {
             plugin.getLogger().severe("Failed to load configurations. Printing stack trace:");
             e.printStackTrace();
@@ -43,6 +46,10 @@ public class SettingsManager {
         failedReloadMessage = config.getString("messages.failed-reload");
         actionBarAwaiting = config.getString("messages.action-bar-awaiting");
         waitingRoomLocation = new ConfigurableLocation(Objects.requireNonNull(config.getConfigurationSection("waiting arena location"))).getLocation();
+        arenaSpawnLocation = new ConfigurableLocation(Objects.requireNonNull(config.getConfigurationSection("pvp arena.spawn location"))).getLocation();
+        countDownTime = config.getLong("countdown.time");
+        notifyTimes = new HashSet<>(config.getLongList("countdown.notify at"));
+        juggernautInventory = config.getMapList("items.juggernaut");
     }
 
     public boolean reloadConfiguration() {

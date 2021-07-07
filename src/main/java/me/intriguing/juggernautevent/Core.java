@@ -17,11 +17,16 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Core extends JavaPlugin {
 
     @Getter private static Core plugin;
     @Getter private EventManager eventManager;
     @Getter private SettingsManager settingsManager;
+    @Getter private EventRunning eventListener;
+    @Getter private Map<String, BukkitTask> tasks = new HashMap<>();
     private BukkitAudiences adventure;
 
     public Core() {
@@ -41,7 +46,8 @@ public class Core extends JavaPlugin {
 
         this.registerEvents();
         this.registerCommands();
-        this.notRunningActionBar();
+        tasks.put("actionbar", this.notRunningActionBar());
+
     }
 
     public @NonNull BukkitAudiences getAdventure() {
@@ -63,7 +69,8 @@ public class Core extends JavaPlugin {
     }
 
     private void registerEvents() {
-        this.getServer().getPluginManager().registerEvents(new EventRunning(), this);
+        eventListener = new EventRunning();
+        this.getServer().getPluginManager().registerEvents(eventListener, this);
     }
 
     @Override

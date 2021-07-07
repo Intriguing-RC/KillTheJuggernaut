@@ -22,13 +22,8 @@ countdown:
 items:
   juggernaut:
     - slot: 5
-      item: DIAMOND_HELMET
-      flags:
-        name: Cool
-        enchantments:
-          - UNBREAKING;3
-    - slot: 6
-      item: DIAMOND_CHESTPLATE
+      ==: org.bukkit.inventory.itemstack
+
   normal:
     - slot: 5
       item: LEATHER_HELMET
