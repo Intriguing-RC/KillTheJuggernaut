@@ -22,8 +22,8 @@ public class SettingsManager {
     public Location arenaSpawnLocation;
     public long countDownTime;
     public Set<Long> notifyTimes;
-    public ConfigurationSection juggernautInventory;
-    public ConfigurationSection normalInventory;
+    public List<Map<?, ?>> juggernautInventory;
+    public List<Map<?, ?>> normalInventory;
 
     public void init() {
         plugin.getLogger().info("Loading configurations...");
@@ -51,8 +51,8 @@ public class SettingsManager {
         arenaSpawnLocation = new ConfigurableLocation(Objects.requireNonNull(config.getConfigurationSection("pvp arena.spawn location"))).getLocation();
         countDownTime = config.getLong("countdown.time");
         notifyTimes = new HashSet<>(config.getLongList("countdown.notify at"));
-        juggernautInventory = config.getConfigurationSection("items.juggernaut");
-        normalInventory = config.getConfigurationSection("items.normal");
+        juggernautInventory = config.getMapList("items.juggernaut");
+        normalInventory = config.getMapList("items.normal");
     }
 
     public boolean reloadConfiguration() {
