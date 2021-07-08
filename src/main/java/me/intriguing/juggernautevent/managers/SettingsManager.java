@@ -4,7 +4,6 @@ import me.intriguing.juggernautevent.Core;
 import me.intriguing.juggernautevent.util.Config;
 import me.intriguing.juggernautevent.util.ConfigurableLocation;
 import org.bukkit.Location;
-import org.bukkit.configuration.ConfigurationSection;
 
 import java.io.File;
 import java.util.*;
@@ -35,7 +34,7 @@ public class SettingsManager {
 
         config = Config.loadConfiguration(file);
         try {
-            config.syncWithConfig(file, plugin.getResource("config.yml"));
+            config.syncWithConfig(file, plugin.getResource("config.yml"), "items");
             plugin.getLogger().info("Loaded configurations.");
         } catch (Exception e) {
             plugin.getLogger().severe("Failed to load configurations. Printing stack trace:");

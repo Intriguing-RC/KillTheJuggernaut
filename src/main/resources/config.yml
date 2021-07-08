@@ -21,13 +21,12 @@ countdown:
 # Refer to the below example on how to make items
 items:
   juggernaut:
-    'offhand':
-      type: DIAMOND_HELMET
+    - type: DIAMOND_HELMET
       slot: 36
       name: Cool Armor
       lore:
-      - Test
-      - Test
+        - Test
+        - Test
       enchantments:
         DURABILITY: 1
 

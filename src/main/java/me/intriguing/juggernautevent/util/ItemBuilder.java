@@ -1,6 +1,5 @@
 package me.intriguing.juggernautevent.util;
 
-import lombok.Builder;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -73,7 +72,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder addEnchantment(String enchantment, int durability) {
-        this.getItemStack().addUnsafeEnchantment(Objects.requireNonNull(Enchantment.getByKey(NamespacedKey.minecraft(enchantment))), durability);
+        this.getItemStack().addUnsafeEnchantment(Objects.requireNonNull(Enchantment.getByKey(NamespacedKey.minecraft(enchantment.toLowerCase()))), durability);
         return this;
     }
 

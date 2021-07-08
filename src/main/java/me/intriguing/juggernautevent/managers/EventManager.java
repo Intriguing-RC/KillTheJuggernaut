@@ -41,8 +41,8 @@ public class EventManager {
         plugin.getTasks().remove("actionbar");
 
         timer = new CountdownTimer(plugin.getSettingsManager().countDownTime, plugin.getSettingsManager().notifyTimes, () -> {
-            plugin.getEventManager().pickInitialRandomJuggernaut();
-            plugin.getEventManager().gameEnd();
+            pickInitialRandomJuggernaut();
+            beginGame();
         });
         timer.start();
         // Do not run below until game started.
@@ -64,23 +64,23 @@ public class EventManager {
     }
 
     public void pickRandomJuggernaut() {
-        juggernaut = Bukkit.getOnlinePlayers()
+        this.setJuggernaut(Bukkit.getOnlinePlayers()
                 .stream()
                 .skip((int) (Bukkit.getOnlinePlayers().size() * Math.random()))
                 .findFirst()
-                .orElse(null);
+                .orElse(null));
 
         if (juggernaut == null) {
             throw new NullPointerException("New juggernaut player is null!");
         }
-
-        Bukkit.getLogger().info("Juggernaut is now set to " + juggernaut.getName());
     }
 
     public void setJuggernautArmor() {
         this.juggernaut.getInventory().clear();
-        InventoryManager.getJuggernautInventory().forEach((slot, item) ->
-                this.juggernaut.getInventory().setItem(slot, item));
+        Bukkit.getLogger().warning(InventoryManager.getJuggernautInventory().toString());
+        InventoryManager.getJuggernautInventory().forEach((slot, item) -> {
+                this.juggernaut.getInventory().setItem(slot, item);
+        });
     }
 
     public void setAllNormalArmor() {
@@ -104,7 +104,7 @@ public class EventManager {
         plugin.getTasks().put("gameTimer", new BukkitRunnable() {
             @Override
             public void run() {
-                plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("<red>Congrats to " + juggernaut + " for winning the game!"));
+                plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("<red>Congrats to " + juggernaut.getName() + " for winning the game!"));
                 gameEnd();
             }
         }.runTaskLater(plugin, 20L * gameDuration.toSeconds()));
