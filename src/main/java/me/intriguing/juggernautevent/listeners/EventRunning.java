@@ -1,6 +1,8 @@
 package me.intriguing.juggernautevent.listeners;
 
 import me.intriguing.juggernautevent.Core;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -58,7 +60,15 @@ public class EventRunning implements Listener {
         if (e.getPlayer() == plugin.getEventManager().getJuggernaut()) {
             plugin.getEventManager().pickRandomJuggernaut();
         }
+
+        if (Bukkit.getOnlinePlayers().size() <= 1) {
+            plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("<red>Congrats to " +
+                    plugin.getEventManager().getJuggernaut().getName() + " for winning the game!"));
+            plugin.getEventManager().gameEnd();
+        }
     }
+
+
 
     @EventHandler
     public void playerDeathHandler(PlayerDeathEvent e) {
@@ -68,7 +78,7 @@ public class EventRunning implements Listener {
         Player killer = e.getEntity().getKiller();
         Player player = e.getEntity();
 
-        if (plugin.getEventManager().isGameStarted() && killer != null) {
+        if (plugin.getEventManager().isGameStarted() && killer != null && killer == plugin.getEventManager().getJuggernaut()) {
             plugin.getEventManager().setJuggernaut(killer);
             plugin.getEventManager().setJuggernautArmor();
 

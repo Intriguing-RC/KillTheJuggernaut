@@ -7,6 +7,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class PlaceholderAPIHook extends PlaceholderExpansion {
 
+    public static Core plugin;
+
+    public PlaceholderAPIHook() {
+        plugin = Core.getPlugin();
+    }
+
     @Override
     public boolean persist() {
         return true;
@@ -34,6 +40,10 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
 
     @Override
     public String onPlaceholderRequest(Player player, @NotNull String params) {
+        if(params.equals("juggernaut")) {
+            return plugin.getEventManager().getJuggernaut().getName();
+        }
+
         return null;
     }
 }

@@ -101,6 +101,12 @@ public class EventManager {
     public void beginGame() {
         this.gameStarted = true;
 
+        if (Bukkit.getOnlinePlayers().size() < 2) {
+            plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("There were only two players. Event canceling."));
+            gameEnd();
+            return;
+        }
+
         plugin.getTasks().put("gameTimer", new BukkitRunnable() {
             @Override
             public void run() {
