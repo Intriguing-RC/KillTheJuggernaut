@@ -123,6 +123,8 @@ public class EventManager {
     public void gameEnd() {
         this.gameStarted = false;
         this.running = false;
+        this.juggernaut = null;
+        this.gameDuration = null;
 
         plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("Ending event..."));
         Bukkit.getOnlinePlayers().forEach(player -> {

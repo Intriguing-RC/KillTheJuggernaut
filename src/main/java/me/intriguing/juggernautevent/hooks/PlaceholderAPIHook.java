@@ -41,7 +41,11 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
     @Override
     public String onPlaceholderRequest(Player player, @NotNull String params) {
         if(params.equals("juggernaut")) {
-            return plugin.getEventManager().getJuggernaut().getName();
+            if (plugin.getEventManager().getJuggernaut() != null) {
+                return plugin.getEventManager().getJuggernaut().getName();
+            } else {
+                return "None";
+            }
         }
 
         return null;
