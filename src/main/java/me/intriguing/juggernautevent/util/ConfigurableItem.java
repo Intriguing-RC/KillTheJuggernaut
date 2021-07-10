@@ -4,6 +4,7 @@ import lombok.Getter;
 import me.intriguing.juggernautevent.Core;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -21,8 +22,8 @@ public class ConfigurableItem {
         int amount = 1;
         Map<String, Integer> enchantmentsHolder = new HashMap<>();
         String potionEffect = null;
-        int potionDuration = 0;
-        int potionAmplifier = 0;
+        boolean potionExtended = false;
+        boolean potionUpgraded = false;
         String displayName = null;
 
         if (section.get("amount") != null) {
@@ -34,23 +35,26 @@ public class ConfigurableItem {
         }
 
         if (section.get("flags") != null) {
-            if (((Map<?, ?>) section.get("flags")).get("enchantments") != null) {
+            Map<?, ?> flags = (Map<?, ?>) section.get("flags");
+            if (flags.get("enchantments") != null) {
                 Map<?, ?> enchantments = (Map<?, ?>) ((Map<?, ?>) section.get("flags")).get("enchantments");
                 enchantments.forEach((k, v) -> enchantmentsHolder.put((String) k, (int) v));
             }
 
-            if (((Map<?, ?>) section.get("flags")).get("potions") != null) {
-                Map<?, ?> potionAttributes = (Map<?, ?>) ((Map<?, ?>) section.get("flags")).get("potions");
+            Bukkit.getLogger().warning("[DEBUG] Material: " + type);
+            if (flags.get("potion") != null) {
+                Bukkit.getLogger().warning("[DEBUG #2] Material: " + type);
+                Map<?, ?> potionAttributes = (Map<?, ?>) flags.get("potion");
                 potionEffect = (String) potionAttributes.get("effect");
-                potionDuration = (int) potionAttributes.get("duration");
-                potionAmplifier = (int) potionAttributes.get("amplifier");
+                potionExtended = (boolean) potionAttributes.get("extended");
+                potionUpgraded = (boolean) potionAttributes.get("upgraded");
             }
         }
 
         item = new ItemBuilder(type, amount)
                 .setDisplayName(displayName)
                 .addEnchantments(enchantmentsHolder)
-                .setPotionEffect(potionEffect, potionDuration, potionAmplifier)
+                .setPotionEffect(potionEffect, potionExtended, potionUpgraded)
                 .build();
 
         return item;

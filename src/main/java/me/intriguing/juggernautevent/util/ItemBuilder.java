@@ -1,14 +1,15 @@
 package me.intriguing.juggernautevent.util;
 
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,7 @@ import java.util.Objects;
 
 public class ItemBuilder {
 
-    @Getter private ItemStack itemStack;
+    @Getter private final ItemStack itemStack;
 
     public ItemBuilder(Material material) {
         this(material, 1);
@@ -86,15 +87,23 @@ public class ItemBuilder {
 
 
 
-    public ItemBuilder setPotionEffect(String effect, int duration, int amplifier) {
+    public ItemBuilder setPotionEffect(String effect, boolean duration, boolean amplifier) {
+
+        if (effect == null) return this;
 
         ItemMeta newItemMeta = this.getItemMeta();
-        if (itemStack.getType() == Material.SPLASH_POTION || itemStack.getType() == Material.POTION) {
+         if (itemStack.getType() == Material.SPLASH_POTION || itemStack.getType() == Material.POTION) {
             PotionMeta newPotionMeta = (PotionMeta) newItemMeta.clone();
-            newPotionMeta.addCustomEffect(new PotionEffect(
-                    Objects.requireNonNull(PotionEffectType.getByName(effect)),
-                    duration * 20, amplifier),
-                    true);
+            String potionEffect = effect.toUpperCase();
+
+            if (!PotionType.valueOf(potionEffect).isExtendable() || !PotionType.valueOf(potionEffect).isUpgradeable()) {
+                Bukkit.getLogger().severe("Potion Type: " + PotionType.valueOf(potionEffect) + " is not extendable or upgradable. Please check vanilla values and fix your config.");
+                newPotionMeta.setBasePotionData(new PotionData(PotionType.valueOf(potionEffect)));
+            } else {
+                newPotionMeta.setBasePotionData(new PotionData(PotionType.valueOf(potionEffect), duration, amplifier));
+            }
+
+            this.getItemStack().setItemMeta(newPotionMeta);
         }
 
         return this;

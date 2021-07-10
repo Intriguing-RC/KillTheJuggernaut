@@ -1,14 +1,10 @@
 package me.intriguing.juggernautevent;
 
 import lombok.Getter;
-import me.intriguing.juggernautevent.commands.EventCommand;
-import me.intriguing.juggernautevent.commands.HelpCommand;
-import me.intriguing.juggernautevent.commands.ReloadCommand;
-import me.intriguing.juggernautevent.commands.StartCommand;
+import me.intriguing.juggernautevent.commands.*;
 import me.intriguing.juggernautevent.hooks.PlaceholderAPIHook;
 import me.intriguing.juggernautevent.listeners.EventRunning;
 import me.intriguing.juggernautevent.managers.EventManager;
-import me.intriguing.juggernautevent.managers.InventoryManager;
 import me.intriguing.juggernautevent.managers.SettingsManager;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -67,6 +63,7 @@ public class Core extends JavaPlugin {
         baseCommand.registerSubCommand(new StartCommand());
         baseCommand.registerSubCommand(new HelpCommand());
         baseCommand.registerSubCommand(new ReloadCommand());
+        baseCommand.registerSubCommand(new TestCommand());
     }
 
     private void registerEvents() {
