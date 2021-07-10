@@ -35,8 +35,12 @@ public class StartCommand extends SubCommand {
 
             if (args.length >= 2) {
                 if (Bukkit.getPlayerExact(args[1]) != null) {
-                    plugin.getAdventure().sender(sender).sendMessage(MiniMessage.get().parse("<green>Starting Juggernaut Event!"));
-                    plugin.getEventManager().initialize(duration, Bukkit.getPlayerExact(args[1]));
+                    if (!(Bukkit.getOnlinePlayers().size() < 2)) {
+                        plugin.getAdventure().sender(sender).sendMessage(MiniMessage.get().parse("<green>Starting Juggernaut Event!"));
+                        plugin.getEventManager().initialize(duration, Bukkit.getPlayerExact(args[1]));
+                    } else {
+                        plugin.getAdventure().sender(sender).sendMessage(MiniMessage.get().parse("<red>There are less than 2 players." + args[1]));
+                    }
                 } else {
                     plugin.getAdventure().sender(sender).sendMessage(MiniMessage.get().parse("<red>Invalid player " + args[1]));
                 }

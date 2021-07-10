@@ -46,8 +46,8 @@ items:
 # Set messages
 messages:
   # Displayed when invalid argument or /event help
-  help:
-  - '<green>help menu'
+  help: |-
+    '<green>help menu'
   no-permission: '<red><bold>You don''t have permission to run this command!'
   reload: '<green>Plugin successfully reloaded'
   failed-reload: '<red>There was an error when reloading the config, please check console'

@@ -11,7 +11,7 @@ import java.util.*;
 public class SettingsManager {
 
     private static final Core plugin = Core.getPlugin();
-    public List<String> helpMessage;
+    public String helpMessage;
     public String reloadMessage;
     public String failedReloadMessage;
     public String noPermissionMessage;
@@ -40,7 +40,7 @@ public class SettingsManager {
             e.printStackTrace();
         }
 
-        helpMessage = config.getStringList("messages.help");
+        helpMessage = config.getString("messages.help");
         noPermissionMessage = config.getString("messages.no-permission");
         reloadMessage = config.getString("messages.reload");
         failedReloadMessage = config.getString("messages.failed-reload");

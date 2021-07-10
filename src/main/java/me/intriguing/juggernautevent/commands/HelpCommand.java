@@ -23,9 +23,7 @@ public class HelpCommand extends SubCommand {
     public void onCommand(CommandSender sender, String[] args) {
         Audience audience = bukkitAudiences.sender(sender);
         if (sender.hasPermission("event.help")) {
-            for (String helpMessage : config.helpMessage) {
-                audience.sendMessage(MiniMessage.get().parse(helpMessage));
-            }
+            audience.sendMessage(MiniMessage.get().parse(config.helpMessage));
             return;
         }
 
