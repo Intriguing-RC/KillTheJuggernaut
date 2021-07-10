@@ -4,6 +4,7 @@ import lombok.Getter;
 import me.intriguing.juggernautevent.Core;
 import me.intriguing.juggernautevent.util.CountdownTimer;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.Template;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -70,6 +71,8 @@ public class EventManager {
                 .findFirst()
                 .orElse(null));
 
+        plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("<red><name> is now the juggernaut!", Template.of("name", juggernaut.getName())));
+
         if (juggernaut == null) {
             throw new NullPointerException("New juggernaut player is null!");
         }
@@ -77,7 +80,6 @@ public class EventManager {
 
     public void setJuggernautArmor() {
         this.juggernaut.getInventory().clear();
-        Bukkit.getLogger().warning(InventoryManager.getJuggernautInventory().toString());
         InventoryManager.getJuggernautInventory().forEach((slot, item) -> {
                 this.juggernaut.getInventory().setItem(slot, item);
         });
@@ -129,6 +131,8 @@ public class EventManager {
         plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("Ending event..."));
         Bukkit.getOnlinePlayers().forEach(player -> {
             plugin.getEventListener().teleportPlayerToSpawn(player);
+            player.setHealth(20.0D);
+            player.setSaturation(20.0f);
             player.getInventory().clear();
         });
         // Restart awaiting action bar event after game ends
