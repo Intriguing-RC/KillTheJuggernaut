@@ -61,13 +61,13 @@ public class EventRunning implements Listener {
         if (!plugin.getEventManager().isGameStarted()) return;
 
         if (e.getPlayer() == plugin.getEventManager().getJuggernaut()) {
-            plugin.getEventManager().pickRandomJuggernaut();
+            plugin.getEventManager().pickRandomJuggernaut(e.getPlayer());
+            plugin.getEventManager().setJuggernautArmor();
         }
 
-        if (Bukkit.getOnlinePlayers().size() <= 1) {
-            adventure.players().sendMessage(MiniMessage.get().parse("<red>Congrats to " +
-                    plugin.getEventManager().getJuggernaut().getName() + " for winning the game!"));
-            plugin.getEventManager().gameEnd();
+        if (Bukkit.getOnlinePlayers().size() - 1 <= 1) {
+            adventure.players().sendMessage(MiniMessage.get().parse("<red>There are now less than two players on the event!"));
+            plugin.getEventManager().getGameTimer().cancel();
         }
     }
 

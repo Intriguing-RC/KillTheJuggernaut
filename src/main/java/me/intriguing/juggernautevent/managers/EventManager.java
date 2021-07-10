@@ -1,5 +1,6 @@
 package me.intriguing.juggernautevent.managers;
 
+import com.google.common.collect.Sets;
 import lombok.Getter;
 import me.intriguing.juggernautevent.Core;
 import me.intriguing.juggernautevent.util.CountdownTimer;
@@ -8,10 +9,11 @@ import net.kyori.adventure.text.minimessage.Template;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.joda.time.Duration;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventManager {
 
@@ -20,6 +22,7 @@ public class EventManager {
     private Duration gameDuration;
     @Getter private Player juggernaut;
     private CountdownTimer timer;
+    @Getter private CountdownTimer gameTimer;
     private final Core plugin;
 
     public EventManager() {
@@ -52,7 +55,7 @@ public class EventManager {
     // and it will not be null.
     public void pickInitialRandomJuggernaut() {
         if (juggernaut == null) {
-            pickRandomJuggernaut();
+            pickRandomJuggernaut(null);
         }
     }
 
@@ -62,10 +65,15 @@ public class EventManager {
         Bukkit.getLogger().info("Juggernaut is now set to " + juggernaut.getName());
     }
 
-    public void pickRandomJuggernaut() {
-        this.setJuggernaut(Bukkit.getOnlinePlayers()
+    public void pickRandomJuggernaut(Player exclude) {
+        List<Player> playersExclude = new ArrayList<>(Bukkit.getOnlinePlayers());
+        if (exclude != null) {
+            playersExclude.remove(exclude);
+        }
+
+        this.setJuggernaut(playersExclude
                 .stream()
-                .skip((int) (Bukkit.getOnlinePlayers().size() * Math.random()))
+                .skip((int) (playersExclude.size() * Math.random()))
                 .findFirst()
                 .orElse(null));
 
@@ -107,14 +115,11 @@ public class EventManager {
             return;
         }
 
-        plugin.getTasks().put("gameTimer", new BukkitRunnable() {
-            @Override
-            public void run() {
-                plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("<red>Congrats to " + juggernaut.getName() + " for winning the game!"));
-                gameEnd();
-            }
-        }.runTaskLater(plugin, 20L * gameDuration.getStandardSeconds()));
-
+        gameTimer = new CountdownTimer(gameDuration.getStandardSeconds(), Sets.newHashSet(60L, 30L, 15L, 10L, 5L, 4L, 3L, 2L, 1L), () -> {
+            plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("<red>Congrats to " + juggernaut.getName() + " for winning the game!"));
+            gameEnd();
+        }, "<red>Event ending in <secondsleft>!");
+        gameTimer.start();
         this.setJuggernautArmor();
         this.setAllNormalArmor();
 

@@ -7,8 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.joda.time.Duration;
 
-import java.time.format.DateTimeParseException;
-
 public class StartCommand extends SubCommand {
 
     private static Core plugin;
@@ -28,6 +26,10 @@ public class StartCommand extends SubCommand {
             Duration duration;
             try {
                 duration = TimerUtil.getJodaFormatter().parsePeriod(args[0]).toStandardDuration();
+                if (duration.getStandardMinutes() < 1) {
+                    plugin.getAdventure().sender(sender).sendMessage(MiniMessage.get().parse("<red>The game must last at least 1 minute."));
+                    return;
+                }
             } catch (IllegalArgumentException e) {
                 plugin.getAdventure().sender(sender).sendMessage(MiniMessage.get().parse("<red>Invalid time."));
                 return;

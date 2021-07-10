@@ -66,9 +66,9 @@ public class TimerUtil {
 
     public static PeriodFormatter getJodaFormatter() {
         return new PeriodFormatterBuilder()
-                .appendDays().appendSuffix("d ")
-                .appendHours().appendSuffix("h ")
-                .appendMinutes().appendSuffix("min")
+                .appendHours().appendSuffix("h")
+                .appendMinutes().appendSuffix("m")
+                .appendSeconds().appendSuffix("s")
                 .toFormatter();
     }
 
