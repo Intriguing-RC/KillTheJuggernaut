@@ -1,11 +1,12 @@
 package me.intriguing.juggernautevent.commands;
 
 import me.intriguing.juggernautevent.Core;
+import me.intriguing.juggernautevent.util.TimerUtil;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.joda.time.Duration;
 
-import java.time.Duration;
 import java.time.format.DateTimeParseException;
 
 public class StartCommand extends SubCommand {
@@ -26,9 +27,8 @@ public class StartCommand extends SubCommand {
         if (args.length >= 1) {
             Duration duration;
             try {
-                duration = Duration.parse(args[0]);
-            } catch (DateTimeParseException e) {
-                // TODO: Convert this to config message
+                duration = TimerUtil.getJodaFormatter().parsePeriod(args[0]).toStandardDuration();
+            } catch (IllegalArgumentException e) {
                 plugin.getAdventure().sender(sender).sendMessage(MiniMessage.get().parse("<red>Invalid time."));
                 return;
             }

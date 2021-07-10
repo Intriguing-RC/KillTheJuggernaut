@@ -9,9 +9,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.joda.time.Duration;
 
 import javax.annotation.Nullable;
-import java.time.Duration;
 
 public class EventManager {
 
@@ -113,7 +113,7 @@ public class EventManager {
                 plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("<red>Congrats to " + juggernaut.getName() + " for winning the game!"));
                 gameEnd();
             }
-        }.runTaskLater(plugin, 20L * gameDuration.toSeconds()));
+        }.runTaskLater(plugin, 20L * gameDuration.getStandardSeconds()));
 
         this.setJuggernautArmor();
         this.setAllNormalArmor();

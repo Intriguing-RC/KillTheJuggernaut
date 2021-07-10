@@ -1,5 +1,6 @@
 package me.intriguing.juggernautevent.util;
 
+import lombok.Getter;
 import me.intriguing.juggernautevent.Core;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.Template;
@@ -11,7 +12,7 @@ import java.util.Set;
 
 public class CountdownTimer implements Runnable {
 
-    private long secondsLeft;
+    @Getter private long secondsLeft;
     private final Set<Long> notifyTimes;
     private static Core plugin;
     private final Runnable runAfter;

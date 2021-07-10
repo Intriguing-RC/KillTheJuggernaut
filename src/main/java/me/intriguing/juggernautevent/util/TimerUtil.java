@@ -1,10 +1,13 @@
 package me.intriguing.juggernautevent.util;
 
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
+
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WordTimer {
+public class TimerUtil {
 
     public static String getWords(Duration duration) {
         if (duration.toSeconds() <= 0) {
@@ -59,6 +62,14 @@ public class WordTimer {
 
         return str.toString().trim();
 
+    }
+
+    public static PeriodFormatter getJodaFormatter() {
+        return new PeriodFormatterBuilder()
+                .appendDays().appendSuffix("d ")
+                .appendHours().appendSuffix("h ")
+                .appendMinutes().appendSuffix("min")
+                .toFormatter();
     }
 
 }
