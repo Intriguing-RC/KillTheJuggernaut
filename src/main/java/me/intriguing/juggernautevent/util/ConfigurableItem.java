@@ -41,9 +41,7 @@ public class ConfigurableItem {
                 enchantments.forEach((k, v) -> enchantmentsHolder.put((String) k, (int) v));
             }
 
-            Bukkit.getLogger().warning("[DEBUG] Material: " + type);
             if (flags.get("potion") != null) {
-                Bukkit.getLogger().warning("[DEBUG #2] Material: " + type);
                 Map<?, ?> potionAttributes = (Map<?, ?>) flags.get("potion");
                 potionEffect = (String) potionAttributes.get("effect");
                 potionExtended = (boolean) potionAttributes.get("extended");
