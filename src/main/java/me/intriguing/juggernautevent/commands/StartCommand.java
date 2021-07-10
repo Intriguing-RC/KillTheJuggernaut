@@ -1,18 +1,31 @@
 package me.intriguing.juggernautevent.commands;
 
 import me.intriguing.juggernautevent.Core;
+import me.intriguing.juggernautevent.managers.EventManager;
+import me.intriguing.juggernautevent.managers.SettingsManager;
 import me.intriguing.juggernautevent.util.TimerUtil;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.Template;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.joda.time.Duration;
 
 public class StartCommand extends SubCommand {
 
-    private static Core plugin;
+    private final Core plugin;
+    private final Audience server;
+    private final BukkitAudiences adventure;
+    private final EventManager event;
+    private final SettingsManager config;
 
     public StartCommand() {
         plugin = Core.getPlugin();
+        adventure =  plugin.getAdventure();
+        event = plugin.getEventManager();
+        config = plugin.getSettingsManager();
+        server = adventure.players();
     }
 
     @Override
@@ -22,37 +35,39 @@ public class StartCommand extends SubCommand {
 
     @Override
     public void onCommand(CommandSender sender, String[] args) {
+        Audience audience = adventure.sender(sender);
+
         if (args.length >= 1) {
             Duration duration;
             try {
                 duration = TimerUtil.getJodaFormatter().parsePeriod(args[0]).toStandardDuration();
                 if (duration.getStandardMinutes() < 1) {
-                    plugin.getAdventure().sender(sender).sendMessage(MiniMessage.get().parse("<red>The game must last at least 1 minute."));
+                     audience.sendMessage(MiniMessage.get().parse(config.gameMustLastAtLeastOneMinute));
                     return;
                 }
             } catch (IllegalArgumentException e) {
-                plugin.getAdventure().sender(sender).sendMessage(MiniMessage.get().parse("<red>Invalid time."));
+                 audience.sendMessage(MiniMessage.get().parse(config.invalidTimeProvided));
                 return;
             }
 
             if (args.length >= 2) {
                 if (Bukkit.getPlayerExact(args[1]) != null) {
                     if (!(Bukkit.getOnlinePlayers().size() < 2)) {
-                        plugin.getAdventure().sender(sender).sendMessage(MiniMessage.get().parse("<green>Starting Juggernaut Event!"));
-                        plugin.getEventManager().initialize(duration, Bukkit.getPlayerExact(args[1]));
+                         audience.sendMessage(MiniMessage.get().parse(config.successfulStart));
+                         event.initialize(duration, Bukkit.getPlayerExact(args[1]));
                     } else {
-                        plugin.getAdventure().sender(sender).sendMessage(MiniMessage.get().parse("<red>There are less than 2 players." + args[1]));
+                         audience.sendMessage(MiniMessage.get().parse(config.notEnoughPlayers));
                     }
                 } else {
-                    plugin.getAdventure().sender(sender).sendMessage(MiniMessage.get().parse("<red>Invalid player " + args[1]));
+                     audience.sendMessage(MiniMessage.get().parse(config.invalidPlayer, Template.of("player", args[1])));
                 }
             } else {
                 // Start with random player
-                plugin.getAdventure().sender(sender).sendMessage(MiniMessage.get().parse("<green>Starting Juggernaut Event!"));
-                plugin.getEventManager().initialize(duration, null);
+                audience.sendMessage(MiniMessage.get().parse(config.successfulStart));
+                event.initialize(duration, null);
             }
         } else {
-            plugin.getAdventure().sender(sender).sendMessage(MiniMessage.get().parse("<green>You didn't provide a duration!"));
+             audience.sendMessage(MiniMessage.get().parse(config.invalidTimeProvided));
         }
     }
 }

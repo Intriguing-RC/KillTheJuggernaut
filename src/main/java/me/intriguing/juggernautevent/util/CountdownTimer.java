@@ -23,7 +23,7 @@ public class CountdownTimer implements Runnable {
 
     public CountdownTimer(long timer, Set<Long> notifyTimes, @Nullable Runnable runAfter, @Nullable String broadcastOnNotify) {
         if (timer < 0) {
-            throw new IndexOutOfBoundsException("Timer must be greater than or equal to zero!");
+            Bukkit.getLogger().severe("Timer must be greater than or equal to zero!");
         }
 
         plugin = Core.getPlugin();

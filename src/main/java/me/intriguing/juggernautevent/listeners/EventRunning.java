@@ -1,11 +1,12 @@
 package me.intriguing.juggernautevent.listeners;
 
 import me.intriguing.juggernautevent.Core;
+import me.intriguing.juggernautevent.managers.EventManager;
+import me.intriguing.juggernautevent.managers.SettingsManager;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.Template;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,10 +18,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class EventRunning implements Listener {
 
     private final Core plugin;
+    private final EventManager event;
+    private final SettingsManager config;
     private final BukkitAudiences adventure;
 
     public EventRunning() {
         plugin = Core.getPlugin();
+        event = plugin.getEventManager();
+        config = plugin.getSettingsManager();
         adventure = plugin.getAdventure();
     }
 
@@ -30,44 +35,42 @@ public class EventRunning implements Listener {
     }
 
     public void teleportPlayerToSpawn(Player player) {
-        if (plugin.getEventManager().isRunning()) {
-            Location joinLocation = plugin.getSettingsManager().arenaSpawnLocation;
+        if (event.isRunning()) {
+            Location joinLocation = config.arenaSpawnLocation;
             if (joinLocation != null) {
                 player.teleport(joinLocation);
-            }
-
-            if (plugin.getEventManager().isGameStarted()) {
-                player.setGameMode(GameMode.SPECTATOR);
             } else {
-                player.setGameMode(GameMode.SURVIVAL);
+                Bukkit.getLogger().severe("Join location is null!");
             }
         } else {
-            Location joinLocation = plugin.getSettingsManager().waitingRoomLocation;
+            Location joinLocation = config.waitingRoomLocation;
             if (joinLocation != null) {
                 player.teleport(joinLocation);
+            } else {
+                Bukkit.getLogger().severe("Waiting location is null!");
             }
         }
     }
 
     @EventHandler
     public void awaitPlayerStart(PlayerMoveEvent e) {
-        if (plugin.getEventManager().isRunning() && !plugin.getEventManager().isGameStarted()) {
+        if (event.isRunning() && !event.isGameStarted()) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void playerLeave(PlayerQuitEvent e) {
-        if (!plugin.getEventManager().isGameStarted()) return;
+        if (!event.isGameStarted()) return;
 
-        if (e.getPlayer() == plugin.getEventManager().getJuggernaut()) {
-            plugin.getEventManager().pickRandomJuggernaut(e.getPlayer());
-            plugin.getEventManager().setJuggernautArmor();
+        if (e.getPlayer() == event.getJuggernaut()) {
+            event.pickRandomJuggernaut(e.getPlayer());
+            event.setJuggernautArmor();
         }
 
         if (Bukkit.getOnlinePlayers().size() - 1 <= 1) {
-            adventure.players().sendMessage(MiniMessage.get().parse("<red>There are now less than two players on the event!"));
-            plugin.getEventManager().getGameTimer().cancel();
+            adventure.players().sendMessage(MiniMessage.get().parse(config.canNotContinueNotEnoughPlayers));
+            event.getGameTimer().cancel();
         }
     }
 
@@ -86,14 +89,15 @@ public class EventRunning implements Listener {
             public void run() {
                 player.spigot().respawn();
 
-                if (plugin.getEventManager().isGameStarted() && killer != null) {
-                    if (killer != plugin.getEventManager().getJuggernaut()) {
-                        plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("<red><name> is now the juggernaut!", Template.of("name", killer.getName())));
-                        plugin.getEventManager().setJuggernaut(killer);
-                        plugin.getEventManager().setJuggernautArmor();
+                if (event.isGameStarted() && killer != null) {
+                    if (killer != event.getJuggernaut()) {
+                        plugin.getAdventure().players().sendMessage(
+                                MiniMessage.get().parse(config.juggernautKilledChangePlayer, Template.of("killedplayer", player.getName()), Template.of("juggernaut", killer.getName())));
+                        event.setJuggernaut(killer);
+                        event.setJuggernautArmor();
                     }
 
-                    plugin.getEventManager().setNormalArmor(player);
+                    event.setNormalArmor(player);
                 }
             }
         }.runTaskLater(plugin, 1L);
@@ -101,7 +105,7 @@ public class EventRunning implements Listener {
 
     @EventHandler
     public void playerDropItemEvent(PlayerDropItemEvent e) {
-        if (plugin.getEventManager().isGameStarted()) {
+        if (event.isGameStarted()) {
             e.setCancelled(true);
         }
     }
@@ -109,10 +113,10 @@ public class EventRunning implements Listener {
     @EventHandler
     public void playerRespawn(PlayerRespawnEvent e) {
         // Using isRunning instead of isGameStarted just in case player dies during waiting game to start (in waiting area)
-        if (plugin.getEventManager().isRunning()) {
-            e.setRespawnLocation(plugin.getSettingsManager().arenaSpawnLocation);
+        if (event.isRunning()) {
+            e.setRespawnLocation(config.arenaSpawnLocation);
         } else {
-            e.setRespawnLocation(plugin.getSettingsManager().waitingRoomLocation);
+            e.setRespawnLocation(config.waitingRoomLocation);
         }
     }
 

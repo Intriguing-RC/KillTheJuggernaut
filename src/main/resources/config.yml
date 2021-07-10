@@ -10,45 +10,111 @@ pvp arena:
 countdown:
   # Countdown Time
   # When someone runs /event start, it will teleport them to the PvP Arena, though they won't be able to move
-  # If someone joins during the countdown time, they can still play, otherwise, if they try to join after the
-  # countdown time, they won't be able to play.
+  # Until the timer is started.
 
   # Time in seconds
   time: 60
   # Notify at (When to notify for countdown, all numbers must be less than or equal to time otherwise error, and greater than 0).
   notify at: [60, 30, 10, 5, 3, 2, 1]
-# Please refer to this image for slots https://wiki.vg/images/1/13/Inventory-slots.png
+# Indexes 0 through 8 refer to the hotbar. 9 through 35 refer to the main inventory, counting up from 9 at the top
+# left corner of the inventory, moving to the right, and moving to the row below it back on the left side when it
+# reaches the end of the row. It follows the same path in the inventory like you would read a book.
+#
+# Indexes 36 through 39 refer to the armor slots. Index 40 refers to the off hand (shield) item slot.
 # Refer to the below example on how to make items
 items:
   juggernaut:
     - type: DIAMOND_HELMET
       slot: 36
       display-name: Cool Armor
-      enchantments:
-        DURABILITY: 1
+      flags:
+        # The enchantment uses vanilla enchantment names.
+        # You can have enchantment levels that are not vanilla (32,767 is the max)
+        enchantments:
+          DURABILITY: 1
+    - type: SPLASH_POTION
+      slot: 0
+      flags:
+        # The potion system is strictly vanilla! You can not have
+        # non-vanilla settings here. Please check creative inventory
+        # for more info.
+        #
+        # For example, INSTANT_HEAL does not have an extended version
+        # Setting to true will cause an error.
+        potion:
+          effect: INSTANT_HEAL
+          extended: false
+          upgraded: true
 
   normal:
     - slot: 5
       item: LEATHER_HELMET
-    - slot: 36
-      item: WOOD_SWORD
-    - slot: 3
-      item: SPLASH_POTION
-      flags:
-        potion:
-          effect: ABSORPTION
-          # Duration of potion in seconds
-          duration: 30
-          # Amplifier. For example if effect was Strength, amplifier 1 would be Strength I,
-          # whereas amplifier of 2 would be strength 2
-          amplifier: 1
 
-# Set messages
+# Set messages for the plugin
+# You can documentation for the message system here: https://docs.adventure.kyori.net/minimessage.html
+#
+# All messages can either be one line or multi-line. You can always change anything.
+#
+# Single Line:
+# key: "value"
+#
+# Multi Line:
+# key: |-
+#   value line 1
+#   value line 2
 messages:
   # Displayed when invalid argument or /event help
+  # Placeholders:
+  # <tag> - Returns tag of command
+  # <desc> - Returns description of command
   help: |-
-    '<green>help menu'
-  no-permission: '<red><bold>You don''t have permission to run this command!'
-  reload: '<green>Plugin successfully reloaded'
-  failed-reload: '<red>There was an error when reloading the config, please check console'
-  action-bar-awaiting: '<red>Awaiting event to Start'
+    "<green>help menu"
+  # Displayed when player has no permission. This message has no placeholders.
+  no permission: "<red><bold>You don""t have permission to run this command!"
+  # Displayed when sender reloads plugin. This message has no placeholders.
+  reload: "<green>Plugin successfully reloaded"
+  # Displayed when error reloading plugin. This message has no placeholders.
+  failed reload: "<red>There was an error when reloading the config, please check console"
+  # Displayed to all players while game is not running on action bar. This message has no placeholders.
+  action bar awaiting: "<red>Awaiting event to Start"
+  # Displayed as countdown until event started. Please looked at the "notify at" key under
+  # the "countdown" section to set notify times.
+  #
+  # Placeholders:
+  # <secondsleft> - Returns the seconds left for the countdown
+  reminder event start: "There are <secondsleft> until the event starts"
+  # Displayed as countdown until event started. The intervals are ALWAYS
+  # 60 seconds, 30, 15, 10, 5, 4, 3, 2, 1. These intervals can not be changed. This message has no placeholders.
+  reminder event end: "There are <secondsleft> until the event ends"
+  # Displayed when random juggernaut picked.
+  # Placeholders:
+  # <name> - Returns the name of the Juggernaut
+  juggernaut random: "<name> is now the randomly picked juggernaut"
+  # Displayed when juggernaut is killed by player
+  # Placeholders:
+  # <killedplayer> - Returns the old juggernaut
+  # <juggernaut> - Returns the new juggernaut
+  juggernaut kill change player: "<killedplayer> was killed by <juggernaut>. <juggernaut> is now the Juggernaut!"
+  # Displayed when juggernaut is specified. (i.e. /event start Intriguing) and not random.
+  # <name> - Returns the name of the Juggernaut
+  juggernaut not random: "<name> is now the juggernaut!"
+  # Displayed when too many people log out and only left with one player.
+  # This message has no placeolders.
+  cannot continue not enough players: "We can no longer continue the event, not enough players!"
+  # Displayed when game ends and someone has won.
+  # Placeholders:
+  # <name> - Returns the name of the winner
+  announce winner: "<name> has won the event. Congrats!"
+  # Displayed when game is set to end, everyone is teleported to lobby, etc. This message has no placeholders
+  ending event: "Ending event..."
+  # Displayed when user provides time less than one minute. This message has no placeholders.
+  game last least one minute: "The event must last at least one minute!"
+  # Displayed when user provides invalid time. This message has no placeholders.
+  invalid time provider: "You provided an invalid time!"
+  # Displayed when user successfully starts game. This message has no placeholders.
+  successful start event: "You successfully started the Juggernaut event"
+  # Displayed when user providers invalid player. This message has no placeholders.
+  invalid player: "You provided an invalid player"
+
+
+

@@ -115,7 +115,8 @@ public class ItemBuilder {
             return itemMeta;
         }
 
-        throw new NullPointerException("Item Meta of " + itemStack.serialize().toString() + " is null!");
+        Bukkit.getLogger().severe("Item Meta of " + itemStack.serialize().toString() + " is null!");
+        return null;
     }
 
     public ItemStack build() {

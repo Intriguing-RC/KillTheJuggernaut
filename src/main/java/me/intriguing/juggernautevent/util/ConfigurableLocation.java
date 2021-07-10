@@ -1,6 +1,5 @@
 package me.intriguing.juggernautevent.util;
 
-import lombok.Getter;
 import me.intriguing.juggernautevent.Core;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -22,20 +21,21 @@ public class ConfigurableLocation {
         float pitch = (float) section.getDouble("pitch");
 
         if (Bukkit.getWorld(world) == null) {
-            throw new NullPointerException("World " + world + " is null!");
+            Bukkit.getLogger().severe("World " + world + " is null!");
+            return null;
         }
 
         Location location = new Location(Bukkit.getWorld(world), x, y, z, yaw, pitch);
         if (location.clone().subtract(0, 1, 0).getBlock().getType() == Material.AIR) {
             String locationString = location.toString();
-            location = null;
-            throw new RuntimeException("Block below is air! Location: " + locationString);
+            Bukkit.getLogger().severe("Block below is air! Location: " + locationString);
+            return null;
         }
 
         if (location.clone().add(0, 1, 0).getBlock().getType() != Material.AIR || location.getBlock().getType() != Material.AIR) {
             String locationString = location.toString();
-            location = null;
-            throw new RuntimeException("There is no room for the player at the location! Location: " + locationString);
+            Bukkit.getLogger().severe("There is no room for the player at the location! Location: " + locationString);
+            return null;
         }
 
         return location;
