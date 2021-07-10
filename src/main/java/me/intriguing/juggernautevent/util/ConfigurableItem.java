@@ -36,9 +36,7 @@ public class ConfigurableItem {
         if (section.get("flags") != null) {
             if (((Map<?, ?>) section.get("flags")).get("enchantments") != null) {
                 Map<?, ?> enchantments = (Map<?, ?>) ((Map<?, ?>) section.get("flags")).get("enchantments");
-                enchantments.forEach((k, v) -> {
-                    enchantmentsHolder.put((String) k, (int) v);
-                });
+                enchantments.forEach((k, v) -> enchantmentsHolder.put((String) k, (int) v));
             }
 
             if (((Map<?, ?>) section.get("flags")).get("potions") != null) {
