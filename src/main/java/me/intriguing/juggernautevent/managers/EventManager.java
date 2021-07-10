@@ -20,13 +20,11 @@ public class EventManager {
     private Duration gameDuration;
     @Getter private Player juggernaut;
     private CountdownTimer timer;
-    private static Core plugin;
+    private final Core plugin;
 
     public EventManager() {
         plugin = Core.getPlugin();
     }
-
-
 
     public void initialize(Duration duration, @Nullable Player juggernaut) {
         this.gameDuration = duration;

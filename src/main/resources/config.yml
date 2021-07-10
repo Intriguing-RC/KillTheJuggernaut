@@ -23,10 +23,7 @@ items:
   juggernaut:
     - type: DIAMOND_HELMET
       slot: 36
-      name: Cool Armor
-      lore:
-        - Test
-        - Test
+      display-name: Cool Armor
       enchantments:
         DURABILITY: 1
 
@@ -35,8 +32,16 @@ items:
       item: LEATHER_HELMET
     - slot: 36
       item: WOOD_SWORD
+    - slot: 3
+      item: SPLASH_POTION
       flags:
-        name: Normal Sword
+        potion:
+          effect: ABSORPTION
+          # Duration of potion in seconds
+          duration: 30
+          # Amplifier. For example if effect was Strength, amplifier 1 would be Strength I,
+          # whereas amplifier of 2 would be strength 2
+          amplifier: 1
 
 # Set messages
 messages:

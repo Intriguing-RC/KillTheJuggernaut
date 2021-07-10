@@ -20,6 +20,9 @@ public class ConfigurableItem {
         Material type = Material.getMaterial((String) Objects.requireNonNull(section.get("type")));
         int amount = 1;
         Map<String, Integer> enchantmentsHolder = new HashMap<>();
+        String potionEffect = null;
+        int potionDuration = 0;
+        int potionAmplifier = 0;
         String displayName = null;
 
         if (section.get("amount") != null) {
@@ -37,11 +40,19 @@ public class ConfigurableItem {
                     enchantmentsHolder.put((String) k, (int) v);
                 });
             }
+
+            if (((Map<?, ?>) section.get("flags")).get("potions") != null) {
+                Map<?, ?> potionAttributes = (Map<?, ?>) ((Map<?, ?>) section.get("flags")).get("potions");
+                potionEffect = (String) potionAttributes.get("effect");
+                potionDuration = (int) potionAttributes.get("duration");
+                potionAmplifier = (int) potionAttributes.get("amplifier");
+            }
         }
 
         item = new ItemBuilder(type, amount)
                 .setDisplayName(displayName)
                 .addEnchantments(enchantmentsHolder)
+                .setPotionEffect(potionEffect, potionDuration, potionAmplifier)
                 .build();
 
         return item;

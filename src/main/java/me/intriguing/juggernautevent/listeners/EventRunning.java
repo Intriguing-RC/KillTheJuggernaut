@@ -1,6 +1,7 @@
 package me.intriguing.juggernautevent.listeners;
 
 import me.intriguing.juggernautevent.Core;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.Template;
 import org.bukkit.Bukkit;
@@ -17,10 +18,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class EventRunning implements Listener {
 
-    private static Core plugin;
+    private final Core plugin;
+    private final BukkitAudiences adventure;
 
     public EventRunning() {
         plugin = Core.getPlugin();
+        adventure = plugin.getAdventure();
     }
 
     @EventHandler
@@ -48,8 +51,6 @@ public class EventRunning implements Listener {
         }
     }
 
-
-
     @EventHandler
     public void awaitPlayerStart(PlayerMoveEvent e) {
         if (plugin.getEventManager().isRunning() && !plugin.getEventManager().isGameStarted()) {
@@ -66,7 +67,7 @@ public class EventRunning implements Listener {
         }
 
         if (Bukkit.getOnlinePlayers().size() <= 1) {
-            plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("<red>Congrats to " +
+            adventure.players().sendMessage(MiniMessage.get().parse("<red>Congrats to " +
                     plugin.getEventManager().getJuggernaut().getName() + " for winning the game!"));
             plugin.getEventManager().gameEnd();
         }

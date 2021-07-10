@@ -11,7 +11,6 @@ import java.util.*;
 public class SettingsManager {
 
     private static final Core plugin = Core.getPlugin();
-    private static Config config;
     public List<String> helpMessage;
     public String reloadMessage;
     public String failedReloadMessage;
@@ -32,7 +31,7 @@ public class SettingsManager {
             plugin.saveResource("config.yml", false);
         }
 
-        config = Config.loadConfiguration(file);
+        Config config = Config.loadConfiguration(file);
         try {
             config.syncWithConfig(file, plugin.getResource("config.yml"), "items");
             plugin.getLogger().info("Loaded configurations.");
@@ -46,8 +45,8 @@ public class SettingsManager {
         reloadMessage = config.getString("messages.reload");
         failedReloadMessage = config.getString("messages.failed-reload");
         actionBarAwaiting = config.getString("messages.action-bar-awaiting");
-        waitingRoomLocation = new ConfigurableLocation(Objects.requireNonNull(config.getConfigurationSection("waiting arena location"))).getLocation();
-        arenaSpawnLocation = new ConfigurableLocation(Objects.requireNonNull(config.getConfigurationSection("pvp arena.spawn location"))).getLocation();
+        waitingRoomLocation = ConfigurableLocation.build(Objects.requireNonNull(config.getConfigurationSection("waiting arena location")));
+        arenaSpawnLocation = ConfigurableLocation.build(Objects.requireNonNull(config.getConfigurationSection("pvp arena.spawn location")));
         countDownTime = config.getLong("countdown.time");
         notifyTimes = new HashSet<>(config.getLongList("countdown.notify at"));
         juggernautInventory = config.getMapList("items.juggernaut");

@@ -6,6 +6,9 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 import java.util.Map;
@@ -78,6 +81,22 @@ public class ItemBuilder {
 
     public ItemBuilder addEnchantments(Map<String, Integer> enchantments) {
         enchantments.forEach(this::addEnchantment);
+        return this;
+    }
+
+
+
+    public ItemBuilder setPotionEffect(String effect, int duration, int amplifier) {
+
+        ItemMeta newItemMeta = this.getItemMeta();
+        if (itemStack.getType() == Material.SPLASH_POTION || itemStack.getType() == Material.POTION) {
+            PotionMeta newPotionMeta = (PotionMeta) newItemMeta.clone();
+            newPotionMeta.addCustomEffect(new PotionEffect(
+                    Objects.requireNonNull(PotionEffectType.getByName(effect)),
+                    duration * 20, amplifier),
+                    true);
+        }
+
         return this;
     }
 

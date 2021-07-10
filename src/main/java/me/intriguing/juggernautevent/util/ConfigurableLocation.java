@@ -11,10 +11,9 @@ import java.util.Objects;
 
 public class ConfigurableLocation {
 
-    @Getter private Location location;
     private static final Core plugin = Core.getPlugin();
 
-    public ConfigurableLocation(ConfigurationSection section) {
+    public static Location build(ConfigurationSection section) {
         String world = Objects.requireNonNull(section.getString("world"));
         int x = section.getInt("x");
         int y = section.getInt("y");
@@ -26,7 +25,7 @@ public class ConfigurableLocation {
             throw new NullPointerException("World " + world + " is null!");
         }
 
-        location = new Location(Bukkit.getWorld(world), x, y, z, yaw, pitch);
+        Location location = new Location(Bukkit.getWorld(world), x, y, z, yaw, pitch);
         if (location.clone().subtract(0, 1, 0).getBlock().getType() == Material.AIR) {
             String locationString = location.toString();
             location = null;
@@ -37,8 +36,9 @@ public class ConfigurableLocation {
             String locationString = location.toString();
             location = null;
             throw new RuntimeException("There is no room for the player at the location! Location: " + locationString);
-
         }
+
+        return location;
 
     }
 }
