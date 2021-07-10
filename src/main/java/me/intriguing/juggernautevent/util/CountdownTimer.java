@@ -2,6 +2,7 @@ package me.intriguing.juggernautevent.util;
 
 import me.intriguing.juggernautevent.Core;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.Template;
 import org.bukkit.Bukkit;
 
 import javax.annotation.Nullable;
@@ -14,15 +15,17 @@ public class CountdownTimer implements Runnable {
     private final Set<Long> notifyTimes;
     private static Core plugin;
     private final Runnable runAfter;
+    private final String broadcastOnNotify;
     private int bukkitTaskId;
 
-    public CountdownTimer(long timer, Set<Long> notifyTimes, @Nullable Runnable runAfter) {
+    public CountdownTimer(long timer, Set<Long> notifyTimes, @Nullable Runnable runAfter, @Nullable String broadcastOnNotify) {
         if (timer < 0) {
             throw new IndexOutOfBoundsException("Timer must be greater than or equal to zero!");
         }
 
         plugin = Core.getPlugin();
         this.runAfter = runAfter;
+        this.broadcastOnNotify = broadcastOnNotify;
         this.notifyTimes = notifyTimes;
         this.secondsLeft = timer;
     }
@@ -36,7 +39,10 @@ public class CountdownTimer implements Runnable {
 
         if (notifyTimes.contains(secondsLeft)) {
             // TODO: Placeholder System
-            plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("<red>" + WordTimer.getWords(Duration.ofSeconds(secondsLeft)) + " left until event starts!"));
+            if (this.broadcastOnNotify != null) {
+                plugin.getAdventure().players().sendMessage(
+                        MiniMessage.get().parse(broadcastOnNotify, Template.of("secondsleft", String.valueOf(secondsLeft))));
+            }
         }
 
         // TODO: Add placeholder integration for timer

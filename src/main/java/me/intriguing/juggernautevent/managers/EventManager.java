@@ -42,7 +42,7 @@ public class EventManager {
         timer = new CountdownTimer(plugin.getSettingsManager().countDownTime, plugin.getSettingsManager().notifyTimes, () -> {
             pickInitialRandomJuggernaut();
             beginGame();
-        });
+        }, "<red><secondsleft> left until event starts!");
         timer.start();
         // Do not run below until game started.
     }
