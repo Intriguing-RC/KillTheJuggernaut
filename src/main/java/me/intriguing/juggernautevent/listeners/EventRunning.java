@@ -11,9 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.player.*;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class EventRunning implements Listener {
@@ -89,9 +87,11 @@ public class EventRunning implements Listener {
                 player.spigot().respawn();
 
                 if (plugin.getEventManager().isGameStarted() && killer != null) {
-                    plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("<red><name> is now the juggernaut!", Template.of("name", killer.getName())));
-                    plugin.getEventManager().setJuggernaut(killer);
-                    plugin.getEventManager().setJuggernautArmor();
+                    if (killer != plugin.getEventManager().getJuggernaut()) {
+                        plugin.getAdventure().players().sendMessage(MiniMessage.get().parse("<red><name> is now the juggernaut!", Template.of("name", killer.getName())));
+                        plugin.getEventManager().setJuggernaut(killer);
+                        plugin.getEventManager().setJuggernautArmor();
+                    }
 
                     plugin.getEventManager().setNormalArmor(player);
                 }
@@ -101,19 +101,8 @@ public class EventRunning implements Listener {
 
     @EventHandler
     public void playerDropItemEvent(PlayerDropItemEvent e) {
-        System.out.println("Event Called");
-
         if (plugin.getEventManager().isGameStarted()) {
             e.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public void playerInventoryInteract(InventoryInteractEvent e) {
-        if (plugin.getEventManager().isGameStarted()) {
-            if (e.getWhoClicked() instanceof Player && e.getInventory() instanceof PlayerInventory) {
-                e.setCancelled(true);
-            }
         }
     }
 
