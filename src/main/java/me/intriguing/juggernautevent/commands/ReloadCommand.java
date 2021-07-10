@@ -25,10 +25,7 @@ public class ReloadCommand extends SubCommand {
     @Override
     public void onCommand(CommandSender sender, String[] args) {
         Audience audience = adventure.sender(sender);
-        if (config.reloadConfiguration()) {
-            audience.sendMessage(MiniMessage.get().parse(config.reloadMessage));
-        } else {
-            audience.sendMessage(MiniMessage.get().parse(config.failedReloadMessage));
-        }
+        config.reloadConfiguration();
+        audience.sendMessage(MiniMessage.get().parse(config.reloadMessage));
     }
 }

@@ -70,11 +70,9 @@ messages:
   help: |-
     "<green>help menu"
   # Displayed when player has no permission. This message has no placeholders.
-  no permission: "<red><bold>You don""t have permission to run this command!"
+  no permission: "<red><bold>You don't have permission to run this command!"
   # Displayed when sender reloads plugin. This message has no placeholders.
   reload: "<green>Plugin successfully reloaded"
-  # Displayed when error reloading plugin. This message has no placeholders.
-  failed reload: "<red>There was an error when reloading the config, please check console"
   # Displayed to all players while game is not running on action bar. This message has no placeholders.
   action bar awaiting: "<red>Awaiting event to Start"
   # Displayed as countdown until event started. Please looked at the "notify at" key under
