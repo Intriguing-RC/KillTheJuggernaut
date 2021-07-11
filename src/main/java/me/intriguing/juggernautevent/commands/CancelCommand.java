@@ -6,6 +6,7 @@ import me.intriguing.juggernautevent.managers.SettingsManager;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.Template;
 import org.bukkit.command.CommandSender;
 
 public class CancelCommand extends SubCommand {
@@ -37,6 +38,7 @@ public class CancelCommand extends SubCommand {
         }
         if (event.isRunning()) {
             if (event.isGameStarted()) {
+                plugin.getAdventure().players().sendMessage(MiniMessage.get().parse(config.announceWinner, Template.of("name", event.getJuggernaut().getName())));
                 event.getGameTimer().getBukkitTask().cancel();
             } else {
                 event.getTimer().getBukkitTask().cancel();

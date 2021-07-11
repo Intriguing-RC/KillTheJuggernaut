@@ -5,3 +5,27 @@ depend: [PlaceholderAPI]
 author: ${author}
 version: ${project.version}
 commands: {event: {}}
+permissions:
+  event.*:
+    description: Gives access to all /event commands
+    children:
+      event.start: true
+      event.help: true
+      event.cancel: true
+      event.reload: true
+      event.exempt: false
+  event.start:
+    description: Gives access to /event start
+    default: op
+  event.help:
+    description: Gives access to /event help
+    default: op
+  event.cancel:
+    description: Gives access to /event cancel
+    default: op
+  event.reload:
+    description: Gives access to /event reload
+    default: op
+  event.exempt:
+    description: Exempts a player from the Juggernaut Event
+    default: false

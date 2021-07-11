@@ -60,7 +60,7 @@ public class StartCommand extends SubCommand {
 
             List<Player> playingList = new ArrayList<>(Bukkit.getOnlinePlayers());
             Bukkit.getOnlinePlayers().forEach(player -> {
-                if (player.hasPermission("event.exclude")) {
+                if (player.hasPermission("event.exempt")) {
                     playingList.remove(player);
                 }
             });

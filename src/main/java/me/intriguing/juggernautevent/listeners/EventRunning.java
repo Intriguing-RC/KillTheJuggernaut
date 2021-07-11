@@ -45,7 +45,7 @@ public class EventRunning implements Listener {
         if (event.isRunning()) {
             Location joinLocation = config.arenaSpawnLocation;
             if (joinLocation != null) {
-                if (!player.hasPermission("event.exclude")) {
+                if (!player.hasPermission("event.exempt")) {
                     event.getPlayingList().add(player);
                     if (event.isGameStarted()) {
                         event.setNormalArmor(player);
