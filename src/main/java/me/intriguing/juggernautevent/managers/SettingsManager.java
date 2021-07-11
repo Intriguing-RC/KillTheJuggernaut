@@ -35,6 +35,7 @@ public class SettingsManager {
     public String invalidTimeProvided;
     public String successfulStart;
     public String invalidPlayer;
+    public String eventAlreadyRunning;
 
     public void init() {
         plugin.getLogger().info("Loading configurations...");
@@ -77,6 +78,7 @@ public class SettingsManager {
         invalidTimeProvided = config.getString("messages.invalid time provided");
         successfulStart = config.getString("messages.successful start event");
         invalidPlayer = config.getString("messages.invalid player");
+        eventAlreadyRunning = config.getString("messages.event already running");
 
 
     }

@@ -31,7 +31,7 @@ items:
         # The enchantment uses vanilla enchantment names.
         # You can have enchantment levels that are not vanilla (32,767 is the max)
         enchantments:
-          DURABILITY: 1
+          UNBREAKABLE: 1
     - type: SPLASH_POTION
       slot: 0
       flags:
@@ -97,7 +97,7 @@ messages:
   # <name> - Returns the name of the Juggernaut
   juggernaut not random: "<name> is now the juggernaut!"
   # Displayed when too many people log out and only left with one player.
-  # This message has no placeolders.
+  # This message has no placeholders.
   cannot continue not enough players: "We can no longer continue the event, not enough players!"
   # Displayed when game ends and someone has won.
   # Placeholders:
@@ -108,11 +108,13 @@ messages:
   # Displayed when user provides time less than one minute. This message has no placeholders.
   game last least one minute: "The event must last at least one minute!"
   # Displayed when user provides invalid time. This message has no placeholders.
-  invalid time provider: "You provided an invalid time!"
+  invalid time provided: "You provided an invalid time!"
   # Displayed when user successfully starts game. This message has no placeholders.
   successful start event: "You successfully started the Juggernaut event"
   # Displayed when user providers invalid player. This message has no placeholders.
   invalid player: "You provided an invalid player"
+  # Displayed when event is already running. This message has no placeholders.
+  event already running: "An event is already running!"
 
 
 

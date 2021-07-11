@@ -37,6 +37,11 @@ public class StartCommand extends SubCommand {
     public void onCommand(CommandSender sender, String[] args) {
         Audience audience = adventure.sender(sender);
 
+        if (event.isRunning()) {
+            audience.sendMessage((MiniMessage.get().parse(config.eventAlreadyRunning)));
+            return;
+        }
+
         if (args.length >= 1) {
             Duration duration;
             try {
@@ -46,7 +51,7 @@ public class StartCommand extends SubCommand {
                     return;
                 }
             } catch (IllegalArgumentException e) {
-                 audience.sendMessage(MiniMessage.get().parse(config.invalidTimeProvided));
+                audience.sendMessage(MiniMessage.get().parse(config.invalidTimeProvided));
                 return;
             }
 

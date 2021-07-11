@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 
 import javax.annotation.Nullable;
+import java.time.Duration;
 import java.util.Set;
 
 public class CountdownTimer implements Runnable {
@@ -43,7 +44,7 @@ public class CountdownTimer implements Runnable {
             // TODO: Placeholder System
             if (this.broadcastOnNotify != null) {
                 plugin.getAdventure().players().sendMessage(
-                        MiniMessage.get().parse(broadcastOnNotify, Template.of("secondsleft", String.valueOf(secondsLeft))));
+                        MiniMessage.get().parse(broadcastOnNotify, Template.of("secondsleft", TimerUtil.getWords(Duration.ofSeconds(secondsLeft)))));
             }
         }
 

@@ -96,8 +96,11 @@ public class ItemBuilder {
             PotionMeta newPotionMeta = (PotionMeta) newItemMeta.clone();
             String potionEffect = effect.toUpperCase();
 
-            if (!PotionType.valueOf(potionEffect).isExtendable() || !PotionType.valueOf(potionEffect).isUpgradeable()) {
-                Bukkit.getLogger().severe("Potion Type: " + PotionType.valueOf(potionEffect) + " is not extendable or upgradable. Please check vanilla values and fix your config.");
+            if ((!PotionType.valueOf(potionEffect).isExtendable() || !PotionType.valueOf(potionEffect).isUpgradeable())) {
+                if (duration || amplifier) {
+                    Bukkit.getLogger().severe("Potion Type: " + PotionType.valueOf(potionEffect) + " is not extendable or upgradable. Please check vanilla values and fix your config.");
+                }
+
                 newPotionMeta.setBasePotionData(new PotionData(PotionType.valueOf(potionEffect)));
             } else {
                 newPotionMeta.setBasePotionData(new PotionData(PotionType.valueOf(potionEffect), duration, amplifier));
