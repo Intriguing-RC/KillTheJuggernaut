@@ -37,6 +37,7 @@ public class EventRunning implements Listener {
         e.getPlayer().setSaturation(20.0f);
         e.getPlayer().setExp(0.0f);
         e.getPlayer().setLevel(0);
+        e.getPlayer().getInventory().clear();
         teleportPlayerToSpawn(e.getPlayer());
     }
 
@@ -46,7 +47,9 @@ public class EventRunning implements Listener {
             if (joinLocation != null) {
                 if (!player.hasPermission("event.exclude")) {
                     event.getPlayingList().add(player);
-                    event.setNormalArmor(player);
+                    if (event.isGameStarted()) {
+                        event.setNormalArmor(player);
+                    }
                     player.teleport(joinLocation);
                 }
             } else {
@@ -75,12 +78,16 @@ public class EventRunning implements Listener {
     public void playerLeave(PlayerQuitEvent e) {
         if (!event.isGameStarted()) return;
 
+        e.getPlayer().getInventory().clear();
+
+        event.getPlayingList().remove(e.getPlayer());
+
         if (e.getPlayer() == event.getJuggernaut()) {
             event.pickRandomJuggernaut(e.getPlayer());
             event.setJuggernautArmor();
         }
 
-        if (event.getPlayingList().size() - 1 <= 1) {
+        if (event.getPlayingList().size() <= 1) {
             adventure.players().sendMessage(MiniMessage.get().parse(config.canNotContinueNotEnoughPlayers));
             event.getGameTimer().cancelAndRun();
         }
