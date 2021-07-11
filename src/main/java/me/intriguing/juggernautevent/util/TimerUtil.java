@@ -1,23 +1,25 @@
 package me.intriguing.juggernautevent.util;
 
+import org.apache.commons.lang.time.DurationFormatUtils;
+import org.joda.time.Duration;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 
-import java.time.Duration;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class TimerUtil {
 
     public static String getWords(Duration duration) {
-        if (duration.toSeconds() <= 0) {
+        if (duration.getStandardSeconds() <= 0) {
             return "0 seconds";
         }
 
         StringBuilder str = new StringBuilder();
 
-        long secondsParsed = duration.toSeconds();
-        Map<String, Long> values = new HashMap<>();
+        long secondsParsed = duration.getStandardSeconds();
+        Map<String, Long> values = new LinkedHashMap<>();
 
         if (secondsParsed / 86400 >= 1) {
             if (secondsParsed / 86400 == 1) {
@@ -70,6 +72,30 @@ public class TimerUtil {
                 .appendMinutes().appendSuffix("m")
                 .appendSeconds().appendSuffix("s")
                 .toFormatter();
+    }
+
+    public static String formatDuration(Duration duration) {
+        return DurationFormatUtils.formatDuration(duration.getMillis(), "HH:mm:ss", true);
+    }
+
+    public static boolean automaticRemind(Duration duration) {
+        long seconds = duration.getStandardSeconds();
+
+        if (seconds <= 60) {
+            return (Arrays.asList(60L, 30L, 15L, 10L, 5L, 4L, 3L, 2L, 1L).contains(seconds));
+        }
+
+        if (seconds <= 3600) {
+            double hourTest = (seconds / 60.0) - (int) (seconds / 60.0);
+            return (Arrays.asList(0.0d, 0.5d).contains(hourTest));
+        }
+
+        else {
+            double multiHourTest = (seconds / 3600.0) - (int) (seconds / 3600.0);
+            if (Arrays.asList(0.0d, 0.5d).contains(multiHourTest)) return true;
+        }
+
+        return false;
     }
 
 }

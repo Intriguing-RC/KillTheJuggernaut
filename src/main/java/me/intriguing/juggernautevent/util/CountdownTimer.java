@@ -6,10 +6,11 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.Template;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
+import org.joda.time.Duration;
 
 import javax.annotation.Nullable;
-import java.time.Duration;
 import java.util.Set;
+import java.util.function.Predicate;
 
 public class CountdownTimer implements Runnable {
 
@@ -19,16 +20,16 @@ public class CountdownTimer implements Runnable {
     private static Core plugin;
     private final Runnable runAfter;
     private final String broadcastOnNotify;
-    private int bukkitTaskId;
+    private final Predicate<Duration> canSend;
 
-
-    public CountdownTimer(long timer, Set<Long> notifyTimes, @Nullable Runnable runAfter, @Nullable String broadcastOnNotify) {
+    public CountdownTimer(long timer, @Nullable Set<Long> notifyTimes, @Nullable Runnable runAfter, @Nullable String broadcastOnNotify, @Nullable Predicate<Duration> canSend) {
         if (timer < 0) {
             Bukkit.getLogger().severe("Timer must be greater than or equal to zero!");
         }
 
         plugin = Core.getPlugin();
         this.runAfter = runAfter;
+        this.canSend = canSend;
         this.broadcastOnNotify = broadcastOnNotify;
         this.notifyTimes = notifyTimes;
         this.secondsLeft = timer;
@@ -37,18 +38,26 @@ public class CountdownTimer implements Runnable {
     @Override
     public void run() {
         if (secondsLeft == 0) {
-            this.cancel();
+            this.cancelAndRun();
         }
 
-        if (notifyTimes.contains(secondsLeft)) {
-            // TODO: Placeholder System
-            if (this.broadcastOnNotify != null) {
-                plugin.getAdventure().players().sendMessage(
-                        MiniMessage.get().parse(broadcastOnNotify, Template.of("secondsleft", TimerUtil.getWords(Duration.ofSeconds(secondsLeft)))));
+        if (notifyTimes != null) {
+            if (notifyTimes.contains(secondsLeft)) {
+                if (this.broadcastOnNotify != null) {
+                    plugin.getAdventure().players().sendMessage(
+                            MiniMessage.get().parse(broadcastOnNotify, Template.of("secondsleft", TimerUtil.getWords(Duration.standardSeconds(secondsLeft)))));
+                }
             }
         }
 
-        // TODO: Add placeholder integration for timer
+        if (canSend != null) {
+            if (canSend.test(Duration.standardSeconds(secondsLeft))) {
+                if (this.broadcastOnNotify != null) {
+                    plugin.getAdventure().players().sendMessage(
+                            MiniMessage.get().parse(broadcastOnNotify, Template.of("secondsleft", TimerUtil.getWords(Duration.standardSeconds(secondsLeft)))));
+                }
+            }
+        }
 
         secondsLeft--;
     }
@@ -57,7 +66,7 @@ public class CountdownTimer implements Runnable {
         bukkitTask = Bukkit.getScheduler().runTaskTimer(plugin, this, 0, 20L);
     }
 
-    public void cancel() {
+    public void cancelAndRun() {
         this.getBukkitTask().cancel();
         if (this.runAfter != null) this.runAfter.run();
     }

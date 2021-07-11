@@ -31,11 +31,17 @@ public class SettingsManager {
     public String endingEvent;
     public String canNotContinueNotEnoughPlayers;
     public String juggernautKilledChangePlayer;
-    public String gameMustLastAtLeastOneMinute;
     public String invalidTimeProvided;
     public String successfulStart;
     public String invalidPlayer;
     public String eventAlreadyRunning;
+    public String forcedStopped;
+    public String cantHitPlayers;
+    public String invalidPlayerExempt;
+    public String juggernautTag;
+    public String normalTag;
+    public String eventNotRunning;
+    public String successfulStop;
 
     public void init() {
         plugin.getLogger().info("Loading configurations...");
@@ -74,11 +80,18 @@ public class SettingsManager {
         canNotContinueNotEnoughPlayers = config.getString("messages.cannot continue not enough players");
         announceWinner = config.getString("messages.announce winner");
         endingEvent = config.getString("messages.ending event");
-        gameMustLastAtLeastOneMinute = config.getString("messages.game last least one minute");
         invalidTimeProvided = config.getString("messages.invalid time provided");
         successfulStart = config.getString("messages.successful start event");
         invalidPlayer = config.getString("messages.invalid player");
         eventAlreadyRunning = config.getString("messages.event already running");
+        forcedStopped = config.getString("messages.forced stopped");
+        cantHitPlayers = config.getString("messages.cant hit players");
+        invalidPlayerExempt = config.getString("messages.invalid player exempt");
+        juggernautTag = config.getString("messages.juggernaut tag");
+        normalTag = config.getString("messages.normal tag");
+        eventNotRunning = config.getString("messages.event not running");
+        successfulStop = config.getString("messages.successful stop");
+
 
 
     }

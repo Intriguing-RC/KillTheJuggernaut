@@ -14,9 +14,9 @@ public class ConfigurableLocation {
 
     public static Location build(ConfigurationSection section) {
         String world = Objects.requireNonNull(section.getString("world"));
-        int x = section.getInt("x");
-        int y = section.getInt("y");
-        int z = section.getInt("z");
+        double x = section.getDouble("x");
+        double y = section.getDouble("y");
+        double z = section.getDouble("z");
         float yaw = (float) section.getDouble("yaw");
         float pitch = (float) section.getDouble("pitch");
 

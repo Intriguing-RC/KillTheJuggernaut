@@ -24,6 +24,11 @@ public class ReloadCommand extends SubCommand {
 
     @Override
     public void onCommand(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("event.reload")) {
+            adventure.sender(sender).sendMessage(MiniMessage.get().parse(config.noPermissionMessage));
+            return;
+        }
+
         Audience audience = adventure.sender(sender);
         config.reloadConfiguration();
         audience.sendMessage(MiniMessage.get().parse(config.reloadMessage));

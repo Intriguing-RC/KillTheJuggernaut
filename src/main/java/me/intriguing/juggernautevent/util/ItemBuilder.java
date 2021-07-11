@@ -92,7 +92,7 @@ public class ItemBuilder {
         if (effect == null) return this;
 
         ItemMeta newItemMeta = this.getItemMeta();
-         if (itemStack.getType() == Material.SPLASH_POTION || itemStack.getType() == Material.POTION) {
+         if (itemStack.getType() == Material.SPLASH_POTION || itemStack.getType() == Material.POTION || itemStack.getType() == Material.TIPPED_ARROW) {
             PotionMeta newPotionMeta = (PotionMeta) newItemMeta.clone();
             String potionEffect = effect.toUpperCase();
 

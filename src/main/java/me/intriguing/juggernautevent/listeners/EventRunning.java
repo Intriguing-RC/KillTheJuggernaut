@@ -11,7 +11,9 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -31,6 +33,9 @@ public class EventRunning implements Listener {
 
     @EventHandler
     public void handleEventStarted(PlayerJoinEvent e) {
+        e.getPlayer().setHealth(20.0f);
+        e.getPlayer().setSaturation(20.0f);
+        e.getPlayer().setExp(0.0f);
         teleportPlayerToSpawn(e.getPlayer());
     }
 
@@ -55,7 +60,9 @@ public class EventRunning implements Listener {
     @EventHandler
     public void awaitPlayerStart(PlayerMoveEvent e) {
         if (event.isRunning() && !event.isGameStarted()) {
-            e.setCancelled(true);
+            if (event.getPlayingList().contains(e.getPlayer())) {
+                e.setCancelled(true);
+            }
         }
     }
 
@@ -68,17 +75,37 @@ public class EventRunning implements Listener {
             event.setJuggernautArmor();
         }
 
-        if (Bukkit.getOnlinePlayers().size() - 1 <= 1) {
+        if (event.getPlayingList().size() - 1 <= 1) {
             adventure.players().sendMessage(MiniMessage.get().parse(config.canNotContinueNotEnoughPlayers));
-            event.getGameTimer().cancel();
+            event.getGameTimer().cancelAndRun();
         }
     }
 
+    @EventHandler
+    public void deleteArrow(ProjectileHitEvent e) {
+        e.getEntity().remove();
+    }
 
+    @EventHandler
+    public void disablePvPWhileWaiting(EntityDamageByEntityEvent e) {
+        if (event.isRunning() && !event.isGameStarted()) {
+            if (e.getEntity() instanceof Player && e.getDamager() instanceof Player) {
+                e.setCancelled(true);
+            }
+        }
+
+        if (event.isRunning()) {
+            if (e.getDamager() instanceof Player) {
+                if (!event.getPlayingList().contains((Player) e.getDamager())) {
+                    e.setCancelled(true);
+                    adventure.sender(e.getDamager()).sendMessage(MiniMessage.get().parse(config.cantHitPlayers));
+                }
+            }
+        }
+    }
 
     @EventHandler
     public void playerDeathHandler(PlayerDeathEvent e) {
-
         e.getDrops().clear();
 
         Player killer = e.getEntity().getKiller();

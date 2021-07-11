@@ -63,7 +63,7 @@ public class Core extends JavaPlugin {
         baseCommand.registerSubCommand(new StartCommand());
         baseCommand.registerSubCommand(new HelpCommand());
         baseCommand.registerSubCommand(new ReloadCommand());
-        baseCommand.registerSubCommand(new TestCommand());
+        baseCommand.registerSubCommand(new CancelCommand());
     }
 
     private void registerEvents() {

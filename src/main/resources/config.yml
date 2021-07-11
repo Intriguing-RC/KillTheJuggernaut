@@ -25,13 +25,13 @@ countdown:
 items:
   juggernaut:
     - type: DIAMOND_HELMET
-      slot: 36
+      slot: 39
       display-name: Cool Armor
       flags:
         # The enchantment uses vanilla enchantment names.
         # You can have enchantment levels that are not vanilla (32,767 is the max)
         enchantments:
-          UNBREAKABLE: 1
+          UNBREAKING: 1
     - type: SPLASH_POTION
       slot: 0
       flags:
@@ -44,11 +44,11 @@ items:
         potion:
           effect: INSTANT_HEAL
           extended: false
-          upgraded: true
+          upgraded: false
 
   normal:
     - slot: 5
-      item: LEATHER_HELMET
+      type: LEATHER_HELMET
 
 # Set messages for the plugin
 # You can documentation for the message system here: https://docs.adventure.kyori.net/minimessage.html
@@ -63,16 +63,13 @@ items:
 #   value line 1
 #   value line 2
 messages:
-  # Displayed when invalid argument or /event help
-  # Placeholders:
-  # <tag> - Returns tag of command
-  # <desc> - Returns description of command
+  # Displayed when invalid argument or /event help. This message has no placeholders.
   help: |-
     <green>help menu
   # Displayed when player has no permission. This message has no placeholders.
   no permission: "<red><bold>You don't have permission to run this command!"
   # Displayed when sender reloads plugin. This message has no placeholders.
-  reload: "<green>Plugin successfully reloaded"
+  reload: "<green>Plugin reloaded. Check console for possible issues."
   # Displayed to all players while game is not running on action bar. This message has no placeholders.
   action bar awaiting: "<red>Awaiting event to Start"
   # Displayed as countdown until event started. Please looked at the "notify at" key under
@@ -105,16 +102,31 @@ messages:
   announce winner: "<name> has won the event. Congrats!"
   # Displayed when game is set to end, everyone is teleported to lobby, etc. This message has no placeholders
   ending event: "Ending event..."
-  # Displayed when user provides time less than one minute. This message has no placeholders.
-  game last least one minute: "The event must last at least one minute!"
   # Displayed when user provides invalid time. This message has no placeholders.
   invalid time provided: "You provided an invalid time!"
   # Displayed when user successfully starts game. This message has no placeholders.
   successful start event: "You successfully started the Juggernaut event"
+  # Displayed when user runs /event cancel. This message has no placeholders.
+  successful stop: "You successfully stopped the Juggernaut event!"
   # Displayed when user providers invalid player. This message has no placeholders.
   invalid player: "You provided an invalid player"
   # Displayed when event is already running. This message has no placeholders.
   event already running: "An event is already running!"
+  # Displayed when /event cancel is used. This message has no placeholders.
+  forced stopped: "Event was forced stopped!"
+  # Displayed when exempt players try to kill player. This message has no placeholders.
+  cant hit players: "You can't hit players!"
+  # Displayed when exempt player is tried to used as a player in /event start <player>. This message has no placeholders.
+  invalid player exempt: "Invalid Player. This player is exempt."
+  # Displayed when not enough players sent to admin with /event start. This message has no placeholders.
+  not enough players: "There are not enough players. There must be at least 2 non-exempt players!"
+  # Displayed when /event cancel is ran, and event is not running.
+  event not running: "No event is currently running!"
+  # Placeholder tag for %juggernautevent_tag%
+  normal tag: "&8&l[&c&lJUGGERNAUT&8&l] "
+  # Placeholder tag for %juggernautevent_tag%
+  juggernaut tag: "&8&l[&b&lNORMAL&8&l] "
+
 
 
 
