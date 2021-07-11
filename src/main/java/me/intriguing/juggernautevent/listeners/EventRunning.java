@@ -44,7 +44,11 @@ public class EventRunning implements Listener {
         if (event.isRunning()) {
             Location joinLocation = config.arenaSpawnLocation;
             if (joinLocation != null) {
-                player.teleport(joinLocation);
+                if (!player.hasPermission("event.exclude")) {
+                    event.getPlayingList().add(player);
+                    event.setNormalArmor(player);
+                    player.teleport(joinLocation);
+                }
             } else {
                 Bukkit.getLogger().severe("Join location is null!");
             }
