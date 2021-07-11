@@ -36,6 +36,7 @@ public class EventRunning implements Listener {
         e.getPlayer().setHealth(20.0f);
         e.getPlayer().setSaturation(20.0f);
         e.getPlayer().setExp(0.0f);
+        e.getPlayer().setLevel(0);
         teleportPlayerToSpawn(e.getPlayer());
     }
 
