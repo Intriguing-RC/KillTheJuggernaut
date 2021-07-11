@@ -33,6 +33,7 @@ public class EventRunning implements Listener {
 
     @EventHandler
     public void handleEventStarted(PlayerJoinEvent e) {
+        e.getPlayer().getActivePotionEffects().forEach(potionEffect -> e.getPlayer().removePotionEffect(potionEffect.getType()));
         e.getPlayer().setHealth(20.0f);
         e.getPlayer().setSaturation(20.0f);
         e.getPlayer().setExp(0.0f);

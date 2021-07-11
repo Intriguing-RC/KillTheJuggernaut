@@ -44,9 +44,9 @@ public class CancelCommand extends SubCommand {
                 event.getTimer().getBukkitTask().cancel();
             }
 
+            server.sendMessage(MiniMessage.get().parse(config.forcedStopped));
             event.gameEnd();
             adventure.sender(sender).sendMessage(MiniMessage.get().parse(config.successfulStop));
-            server.sendMessage(MiniMessage.get().parse(config.forcedStopped));
         } else {
             adventure.sender(sender).sendMessage(MiniMessage.get().parse(config.eventNotRunning));
         }
