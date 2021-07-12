@@ -21,18 +21,6 @@ jobs:
       with:
         java-version: '16'
         distribution: 'adopt'
-    - name: maven-settings-xml-action
-      uses: whelk-io/maven-settings-xml-action@v18
-      with:
-        mirrors: >
-          [
-            {
-              "id": "maven-shade-plugin",
-              "mirrorOf": "external:http:*",
-              "url": "http://repository.apache.org/snapshots/"
-            }
-          ]
-        output_file: .m2/settings.xml
     - name: Build with Maven
       run: mvn clean package
     - name: Plugin JAR
