@@ -38,6 +38,7 @@ public class EventRunning implements Listener {
         e.getPlayer().setSaturation(20.0f);
         e.getPlayer().setExp(0.0f);
         e.getPlayer().setLevel(0);
+        e.getPlayer().setGlowing(false);
         e.getPlayer().getInventory().clear();
         teleportPlayerToSpawn(e.getPlayer());
     }
@@ -85,6 +86,7 @@ public class EventRunning implements Listener {
 
         if (e.getPlayer() == event.getJuggernaut()) {
             event.pickRandomJuggernaut(e.getPlayer());
+            event.getJuggernaut().setGlowing(true);
             event.setJuggernautArmor();
         }
 
@@ -134,9 +136,11 @@ public class EventRunning implements Listener {
                         plugin.getAdventure().players().sendMessage(
                                 MiniMessage.get().parse(config.juggernautKilledChangePlayer, Template.of("killedplayer", player.getName()), Template.of("juggernaut", killer.getName())));
                         event.setJuggernaut(killer);
+                        event.getJuggernaut().setGlowing(true);
                         event.setJuggernautArmor();
                     }
 
+                    player.setGlowing(false);
                     event.setNormalArmor(player);
                 }
             }

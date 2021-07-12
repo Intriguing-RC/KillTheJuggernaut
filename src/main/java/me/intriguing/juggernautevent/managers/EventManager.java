@@ -121,6 +121,8 @@ public class EventManager {
             gameEnd();
         }, config.reminderEventEnds, TimerUtil::automaticRemind);
         gameTimer.start();
+
+        this.juggernaut.setGlowing(true);
         this.setJuggernautArmor();
         this.setAllNormalArmor();
 
@@ -135,6 +137,7 @@ public class EventManager {
         plugin.getAdventure().players().sendMessage(MiniMessage.get().parse(config.endingEvent));
         playingList.forEach(player -> {
             plugin.getEventListener().teleportPlayerToSpawn(player);
+            player.setGlowing(false);
             player.getActivePotionEffects().forEach(potionEffect -> player.removePotionEffect(potionEffect.getType()));
             player.setHealth(20.0D);
             player.setSaturation(20.0f);
