@@ -131,6 +131,7 @@ public class EventRunning implements Listener {
             public void run() {
                 player.spigot().respawn();
 
+
                 if (event.isGameStarted() && killer != null) {
                     if (killer != event.getJuggernaut() && player == event.getJuggernaut()) {
                         plugin.getAdventure().players().sendMessage(
@@ -138,10 +139,12 @@ public class EventRunning implements Listener {
                         event.setJuggernaut(killer);
                         event.getJuggernaut().setGlowing(true);
                         event.setJuggernautArmor();
-                    }
 
-                    player.setGlowing(false);
-                    event.setNormalArmor(player);
+                        player.setGlowing(false);
+                        event.setNormalArmor(player);
+                    } else if (killer == event.getJuggernaut() && player == event.getJuggernaut()) {
+                        event.setJuggernautArmor();
+                    }
                 }
             }
         }.runTaskLater(plugin, 1L);

@@ -99,16 +99,6 @@
                         <configuration>
                             <finalName>JuggernautEvent</finalName>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <relocations>
-                                <relocation>
-                                    <pattern>org</pattern>
-                                    <shadedPattern>com.theplonk.juggernautevent.libs.org</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>net.kyori</pattern>
-                                    <shadedPattern>com.theplonk.juggernautevent.libs.net.kyori</shadedPattern>
-                                </relocation>
-                            </relocations>
                             <minimizeJar>true</minimizeJar>
                         </configuration>
                     </execution>
