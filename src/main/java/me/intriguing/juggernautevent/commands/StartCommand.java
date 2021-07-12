@@ -68,7 +68,7 @@ public class StartCommand extends SubCommand {
 
             if (args.length >= 2) {
                 if (Bukkit.getPlayerExact(args[1]) != null) {
-                    if (playingList.contains(Bukkit.getPlayerExact(args[1]))) {
+                    if (!playingList.contains(Bukkit.getPlayerExact(args[1]))) {
                         audience.sendMessage(MiniMessage.get().parse(config.invalidPlayerExempt));
                         return;
                     }
