@@ -23,5 +23,16 @@ jobs:
         distribution: 'adopt'
     - name: Setup CA Certificates
       run: sudo apt-get install -y ca-certificates-java && sudo update-ca-certificates -f
+    - name: maven-settings-xml-action
+      uses: whelk-io/maven-settings-xml-action@v18
+      with:
+        mirrors: >
+        [
+          {
+            "id": "maven-shade-plugin",
+            "mirrorOf": "external:http:*",
+            "url": "http://repository.apache.org/snapshots/"
+          }
+        ]
     - name: Build with Maven
       run: mvn clean package
