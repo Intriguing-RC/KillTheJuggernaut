@@ -20,7 +20,7 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
-        <repository> <!-- for development builds -->
+        <repository>
             <id>sonatype-oss-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
@@ -43,11 +43,6 @@
             <artifactId>spigot-api</artifactId>
             <version>1.17-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>30.1.1-jre</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -104,6 +99,16 @@
                         <configuration>
                             <finalName>JuggernautEvent</finalName>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <relocations>
+                                <relocation>
+                                    <pattern>org</pattern>
+                                    <shadedPattern>me.intriguing.juggernautevent.libs.org</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>net.kyori</pattern>
+                                    <shadedPattern>me.intriguing.juggernautevent.libs.net.kyori</shadedPattern>
+                                </relocation>
+                            </relocations>
                             <minimizeJar>true</minimizeJar>
                         </configuration>
                     </execution>

@@ -10,9 +10,9 @@ import net.kyori.adventure.text.minimessage.Template;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 import org.joda.time.Duration;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
