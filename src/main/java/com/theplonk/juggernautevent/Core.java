@@ -6,7 +6,6 @@ import com.theplonk.juggernautevent.listeners.EventRunning;
 import com.theplonk.juggernautevent.managers.EventManager;
 import com.theplonk.juggernautevent.managers.SettingsManager;
 import lombok.Getter;
-import me.intriguing.juggernautevent.commands.*;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
