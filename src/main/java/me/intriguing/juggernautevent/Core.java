@@ -16,6 +16,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Core extends JavaPlugin {
 
@@ -23,7 +24,7 @@ public class Core extends JavaPlugin {
     @Getter private EventManager eventManager;
     @Getter private SettingsManager settingsManager;
     @Getter private EventRunning eventListener;
-    @Getter private Map<String, BukkitTask> tasks = new HashMap<>();
+    @Getter private final Map<String, BukkitTask> tasks = new HashMap<>();
     private BukkitAudiences adventure;
 
     public Core() {
@@ -57,7 +58,7 @@ public class Core extends JavaPlugin {
     private void registerCommands() {
         EventCommand baseCommand = new EventCommand();
         // Register Base Command
-        this.getCommand("event").setExecutor(baseCommand);
+        Objects.requireNonNull(this.getCommand("event")).setExecutor(baseCommand);
 
         // Register Sub Commands
         baseCommand.registerSubCommand(new StartCommand());

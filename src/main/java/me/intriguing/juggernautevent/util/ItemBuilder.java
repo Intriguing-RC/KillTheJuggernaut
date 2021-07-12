@@ -85,8 +85,6 @@ public class ItemBuilder {
         return this;
     }
 
-
-
     public ItemBuilder setPotionEffect(String effect, boolean duration, boolean amplifier) {
 
         if (effect == null) return this;
