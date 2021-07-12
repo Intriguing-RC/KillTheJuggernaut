@@ -21,8 +21,6 @@ jobs:
       with:
         java-version: '16'
         distribution: 'adopt'
-    - name: Setup CA Certificates
-      run: sudo apt-get install -y ca-certificates-java && sudo update-ca-certificates -f
     - name: maven-settings-xml-action
       uses: whelk-io/maven-settings-xml-action@v18
       with:
