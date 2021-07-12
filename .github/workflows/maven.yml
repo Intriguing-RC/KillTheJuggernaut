@@ -39,4 +39,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: KillTheJuggernaut Artifacts
-        path: target/**.jar
+        path: target/JuggernautEvent.jar
