@@ -1,8 +1,8 @@
-package me.intriguing.juggernautevent.managers;
+package com.theplonk.juggernautevent.managers;
 
-import me.intriguing.juggernautevent.Core;
-import me.intriguing.juggernautevent.util.Config;
-import me.intriguing.juggernautevent.util.ConfigurableLocation;
+import com.theplonk.juggernautevent.util.ConfigurableLocation;
+import com.theplonk.juggernautevent.Core;
+import com.theplonk.juggernautevent.util.Config;
 import org.bukkit.Location;
 
 import java.io.File;

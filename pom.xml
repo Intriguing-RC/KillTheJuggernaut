@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.intriguing.juggernautevent</groupId>
+    <groupId>com.theplonk.juggernautevent</groupId>
     <artifactId>JuggernautEvent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
@@ -102,11 +102,11 @@
                             <relocations>
                                 <relocation>
                                     <pattern>org</pattern>
-                                    <shadedPattern>me.intriguing.juggernautevent.libs.org</shadedPattern>
+                                    <shadedPattern>com.theplonk.juggernautevent.libs.org</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>net.kyori</pattern>
-                                    <shadedPattern>me.intriguing.juggernautevent.libs.net.kyori</shadedPattern>
+                                    <shadedPattern>com.theplonk.juggernautevent.libs.net.kyori</shadedPattern>
                                 </relocation>
                             </relocations>
                             <minimizeJar>true</minimizeJar>

@@ -1,4 +1,4 @@
-package me.intriguing.juggernautevent.commands;
+package com.theplonk.juggernautevent.commands;
 
 import org.bukkit.command.CommandSender;
 

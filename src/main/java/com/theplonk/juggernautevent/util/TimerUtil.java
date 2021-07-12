@@ -1,4 +1,4 @@
-package me.intriguing.juggernautevent.util;
+package com.theplonk.juggernautevent.util;
 
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.joda.time.Duration;

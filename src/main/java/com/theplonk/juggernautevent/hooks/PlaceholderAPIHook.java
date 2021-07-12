@@ -1,10 +1,10 @@
-package me.intriguing.juggernautevent.hooks;
+package com.theplonk.juggernautevent.hooks;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.intriguing.juggernautevent.Core;
-import me.intriguing.juggernautevent.managers.EventManager;
-import me.intriguing.juggernautevent.managers.SettingsManager;
-import me.intriguing.juggernautevent.util.TimerUtil;
+import com.theplonk.juggernautevent.Core;
+import com.theplonk.juggernautevent.managers.EventManager;
+import com.theplonk.juggernautevent.managers.SettingsManager;
+import com.theplonk.juggernautevent.util.TimerUtil;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.entity.Player;

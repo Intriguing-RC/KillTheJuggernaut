@@ -1,10 +1,10 @@
-package me.intriguing.juggernautevent.managers;
+package com.theplonk.juggernautevent.managers;
 
+import com.theplonk.juggernautevent.util.CountdownTimer;
 import lombok.Getter;
 import lombok.Setter;
-import me.intriguing.juggernautevent.Core;
-import me.intriguing.juggernautevent.util.CountdownTimer;
-import me.intriguing.juggernautevent.util.TimerUtil;
+import com.theplonk.juggernautevent.Core;
+import com.theplonk.juggernautevent.util.TimerUtil;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.Template;
 import org.bukkit.Bukkit;

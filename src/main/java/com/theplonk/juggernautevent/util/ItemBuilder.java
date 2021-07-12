@@ -1,4 +1,4 @@
-package me.intriguing.juggernautevent.util;
+package com.theplonk.juggernautevent.util;
 
 import lombok.Getter;
 import org.bukkit.Bukkit;

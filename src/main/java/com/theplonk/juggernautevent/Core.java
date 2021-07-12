@@ -1,11 +1,12 @@
-package me.intriguing.juggernautevent;
+package com.theplonk.juggernautevent;
 
+import com.theplonk.juggernautevent.commands.*;
+import com.theplonk.juggernautevent.hooks.PlaceholderAPIHook;
+import com.theplonk.juggernautevent.listeners.EventRunning;
+import com.theplonk.juggernautevent.managers.EventManager;
+import com.theplonk.juggernautevent.managers.SettingsManager;
 import lombok.Getter;
 import me.intriguing.juggernautevent.commands.*;
-import me.intriguing.juggernautevent.hooks.PlaceholderAPIHook;
-import me.intriguing.juggernautevent.listeners.EventRunning;
-import me.intriguing.juggernautevent.managers.EventManager;
-import me.intriguing.juggernautevent.managers.SettingsManager;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;

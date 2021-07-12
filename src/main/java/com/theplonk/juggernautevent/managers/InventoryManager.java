@@ -1,7 +1,7 @@
-package me.intriguing.juggernautevent.managers;
+package com.theplonk.juggernautevent.managers;
 
-import me.intriguing.juggernautevent.Core;
-import me.intriguing.juggernautevent.util.ConfigurableItem;
+import com.theplonk.juggernautevent.Core;
+import com.theplonk.juggernautevent.util.ConfigurableItem;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;

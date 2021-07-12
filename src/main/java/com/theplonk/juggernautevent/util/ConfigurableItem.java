@@ -1,7 +1,7 @@
-package me.intriguing.juggernautevent.util;
+package com.theplonk.juggernautevent.util;
 
 import lombok.Getter;
-import me.intriguing.juggernautevent.Core;
+import com.theplonk.juggernautevent.Core;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Material;

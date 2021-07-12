@@ -1,8 +1,8 @@
-package me.intriguing.juggernautevent.commands;
+package com.theplonk.juggernautevent.commands;
 
-import me.intriguing.juggernautevent.Core;
-import me.intriguing.juggernautevent.managers.EventManager;
-import me.intriguing.juggernautevent.managers.SettingsManager;
+import com.theplonk.juggernautevent.Core;
+import com.theplonk.juggernautevent.managers.EventManager;
+import com.theplonk.juggernautevent.managers.SettingsManager;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
