@@ -132,8 +132,16 @@ public class EventRunning implements Listener {
                 player.spigot().respawn();
 
 
-                if (event.isGameStarted() && killer != null) {
-                    if (killer != event.getJuggernaut() && player == event.getJuggernaut()) {
+                if (event.isGameStarted()) {
+                    if (killer == null) {
+                        if (player != event.getJuggernaut()) {
+                            event.setNormalArmor(player);
+                        } else {
+                            event.setJuggernautArmor();
+                        }
+                    }
+
+                    else if (killer != event.getJuggernaut() && player == event.getJuggernaut()) {
                         plugin.getAdventure().players().sendMessage(
                                 MiniMessage.get().parse(config.juggernautKilledChangePlayer, Template.of("killedplayer", player.getName()), Template.of("juggernaut", killer.getName())));
                         event.setJuggernaut(killer);
