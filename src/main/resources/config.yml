@@ -65,67 +65,93 @@ items:
 messages:
   # Displayed when invalid argument or /event help. This message has no placeholders.
   help: |-
-    <green>help menu
+
+    <dark_gray><strikethrough><bold>                 [<reset>  <yellow><bold>JUGGERNAUT EVENT  <dark_gray><strikethrough><bold>]                 <reset>
+
+    <gray>() Required | [] Optional
+
+    <yellow>/event help <dark_gray>- <gray>Shows this message
+    <yellow>/event start (duration) [player] <dark_gray>- <gray>Starts the event
+    <yellow>/event reload <dark_gray>- <gray>Reloads the configuration.
+    <yellow>/event cancel <dark_gray>- <gray>Cancels an event
+
+    <dark_gray><strikethrough><bold>                 [<reset>  <yellow><bold>JUGGERNAUT EVENT  <dark_gray><strikethrough><bold>]                 <reset>
+    <reset>
   # Displayed when player has no permission. This message has no placeholders.
-  no permission: "<red><bold>You don't have permission to run this command!"
+  no permission: "<red>You don't have permission to run this command!"
   # Displayed when sender reloads plugin. This message has no placeholders.
-  reload: "<green>Plugin reloaded. Check console for possible issues."
+  reload: "<yellow>Plugin reloaded. Check console for possible issues."
   # Displayed to all players while game is not running on action bar. This message has no placeholders.
-  action bar awaiting: "<red>Awaiting event to Start"
+  action bar awaiting: "<red><bold>AWAITING EVENT START"
   # Displayed as countdown until event started. Please looked at the "notify at" key under
   # the "countdown" section to set notify times.
   #
   # Placeholders:
   # <secondsleft> - Returns the seconds left for the countdown
-  reminder event start: "There are <secondsleft> until the event starts"
+  reminder event start: "<yellow>There are <gold><secondsleft> <yellow>until the event"
+    starts!
   # Displayed as countdown until event started. The intervals are ALWAYS
   # 60 seconds, 30, 15, 10, 5, 4, 3, 2, 1. These intervals can not be changed. This message has no placeholders.
-  reminder event end: "There are <secondsleft> until the event ends"
+  reminder event end: "<yellow>There are <gold><secondsleft> <yellow>until the event ends!"
   # Displayed when random juggernaut picked.
   # Placeholders:
   # <name> - Returns the name of the Juggernaut
-  juggernaut random: "<name> is now the randomly picked juggernaut"
+  juggernaut random: |-
+    <reset>
+    <gold><name> <yellow>is now the randomly picked juggernaut!
+    <reset>
   # Displayed when juggernaut is killed by player
   # Placeholders:
   # <killedplayer> - Returns the old juggernaut
   # <juggernaut> - Returns the new juggernaut
-  juggernaut kill change player: "<killedplayer> was killed by <juggernaut>. <juggernaut> is now the Juggernaut!"
+  juggernaut kill change player: |-
+    <reset>
+    <gold><killedplayer> <yellow>was killed by <gold><juggernaut><yellow>. <gold><juggernaut> <yellow>is now the Juggernaut!
+    <reset>
   # Displayed when juggernaut is specified. (i.e. /event start Intriguing) and not random.
   # <name> - Returns the name of the Juggernaut
-  juggernaut not random: "<name> is now the juggernaut!"
+  juggernaut not random: |-
+    <reset>
+    <gold><name> <yellow>is now the juggernaut!
+    <reset>
   # Displayed when too many people log out and only left with one player.
   # This message has no placeholders.
-  cannot continue not enough players: "We can no longer continue the event, not enough players!"
+  cannot continue not enough players: "<red>We can no longer continue the event, there
+    were enough players!"
   # Displayed when game ends and someone has won.
   # Placeholders:
   # <name> - Returns the name of the winner
-  announce winner: "<name> has won the event. Congrats!"
+  announce winner: |-
+    <reset>
+    <gold><name> <yellow>has won the event. <gold><bold>CONGRATULATIONS!
+    <reset>
   # Displayed when game is set to end, everyone is teleported to lobby, etc. This message has no placeholders
-  ending event: "Ending event..."
+  ending event: "<yellow>Ending the Juggernaut Event!"
   # Displayed when user provides invalid time. This message has no placeholders.
-  invalid time provided: "You provided an invalid time!"
+  invalid time provided: "<red>You provided an invalid time!"
   # Displayed when user successfully starts game. This message has no placeholders.
-  successful start event: "You successfully started the Juggernaut event"
+  successful start event: "<red>You successfully started the Juggernaut event."
   # Displayed when user runs /event cancel. This message has no placeholders.
-  successful stop: "You successfully stopped the Juggernaut event!"
+  successful stop: "<yellow>You successfully stopped the Juggernaut event!"
   # Displayed when user providers invalid player. This message has no placeholders.
-  invalid player: "You provided an invalid player"
+  invalid player: "<red>You provided an invalid player!"
   # Displayed when event is already running. This message has no placeholders.
-  event already running: "An event is already running!"
+  event already running: "<red>An event is already running!"
   # Displayed when /event cancel is used. This message has no placeholders.
-  forced stopped: "Event was forced stopped!"
+  forced stopped: "<red>Event was forced stopped!"
   # Displayed when exempt players try to kill player. This message has no placeholders.
-  cant hit players: "You can't hit players!"
+  cant hit players: "<red>You can't hit players, you are an exempt player!"
   # Displayed when exempt player is tried to used as a player in /event start <player>. This message has no placeholders.
-  invalid player exempt: "Invalid Player. This player is exempt."
+  invalid player exempt: "<red>Invalid Player. This player is exempt."
   # Displayed when not enough players sent to admin with /event start. This message has no placeholders.
-  not enough players: "There are not enough players. There must be at least 2 non-exempt players!"
+  not enough players: "<red>There are not enough players. There must be at least 2
+    non-exempt players!"
   # Displayed when /event cancel is ran, and event is not running.
-  event not running: "No event is currently running!"
+  event not running: "<red>No event is currently running!"
   # Placeholder tag for %juggernautevent_tag%
-  normal tag: "&8&l[&c&lJUGGERNAUT&8&l] "
+  normal tag: '<dark_gray><bold>[<aqua><bold>NORMAL<dark_gray><bold>]<aqua> '
   # Placeholder tag for %juggernautevent_tag%
-  juggernaut tag: "&8&l[&b&lNORMAL&8&l] "
+  juggernaut tag: '<dark_gray><bold>[<red><bold>JUGGERNAUT<dark_gray><bold>]<red> '
 
 
 
