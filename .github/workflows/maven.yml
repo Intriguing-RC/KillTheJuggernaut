@@ -6,8 +6,6 @@ name: Build JAR
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
