@@ -23,8 +23,11 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn clean package
-    - name: Plugin JAR
-      uses: actions/upload-artifact@v2
+    - uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        name: KillTheJuggernaut Artifacts
-        path: target/JuggernautEvent.jar
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Juggernaut Event Development Build"
+        files: |
+          JuggernautEvent.jar
