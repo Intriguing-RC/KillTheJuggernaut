@@ -28,4 +28,4 @@ jobs:
         prerelease: true
         title: "Juggernaut Event Development Build"
         files: |
-          JuggernautEvent.jar
+          target/JuggernautEvent.jar
