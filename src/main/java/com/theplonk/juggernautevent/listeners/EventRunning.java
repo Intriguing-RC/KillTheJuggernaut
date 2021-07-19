@@ -133,6 +133,7 @@ public class EventRunning implements Listener {
 
 
                 if (event.isGameStarted()) {
+
                     if (killer == null) {
                         if (player != event.getJuggernaut()) {
                             event.setNormalArmor(player);
@@ -152,6 +153,8 @@ public class EventRunning implements Listener {
                         event.setNormalArmor(player);
                     } else if (killer == event.getJuggernaut() && player == event.getJuggernaut()) {
                         event.setJuggernautArmor();
+                    } else if (player != event.getJuggernaut()) {
+                        event.setNormalArmor(player);
                     }
                 }
             }
