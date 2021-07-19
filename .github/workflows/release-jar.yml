@@ -29,6 +29,6 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "v${{ github.event.inputs.version }}"
           prerelease: false
-          title: "Version ${{ github.event.inputs.logLevel }}"
+          title: "Version ${{ github.event.inputs.version }}"
           files: |
             target/JuggernautEvent.jar
