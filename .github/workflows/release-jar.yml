@@ -22,6 +22,12 @@ jobs:
         with:
           java-version: '16'
           distribution: 'adopt'
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: "/<version>.*<\/version>/gm"
+          replace: "<version>v${{ github.event.inputs.version }} (COMMIT ID: ${git.commit.id.describe-short})"
+          include: "pom.xml"
       - name: Build with Maven
         run: mvn clean package
       - uses: "marvinpinto/action-automatic-releases@latest"
