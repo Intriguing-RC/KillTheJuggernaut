@@ -26,7 +26,7 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@master
         with:
           find: "/<version>.*<\\/version>/gm"
-          replace: "<version>v${{ github.event.inputs.version }} (COMMIT ID: ${git.commit.id.describe-short})"
+          replace: "<version>v${{ github.event.inputs.version }} (COMMIT ID: ${git.commit.id.describe-short})</version>"
           include: "pom.xml"
       - name: Cache Maven packages
         uses: actions/cache@v2
