@@ -6,11 +6,7 @@
 
     <groupId>com.theplonk.juggernautevent</groupId>
     <artifactId>JuggernautEvent</artifactId>
-<<<<<<< HEAD
     <version>Development Version</version>
-=======
-    <version>v1.1.1 (${git.commit.id.describe-short})</version>
->>>>>>> 50773bbbb0827ac0fc8a9e429ef132bf56e01d4a
 
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
