@@ -28,6 +28,8 @@ jobs:
           find: "/<version>.*<\\/version>/gm"
           replace: "<version>v${{ github.event.inputs.version }} (COMMIT ID: ${git.commit.id.describe-short})</version>"
           include: "pom.xml"
+      - name: Get pom.xml
+        run: "echo pom.xml"
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
