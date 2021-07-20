@@ -23,7 +23,7 @@ jobs:
       uses: jacobtomlinson/gha-find-replace@master
       with:
         find: "<version>Development Version<\\/version>"
-        replace: "<version>DEV-BUILD (COMMIT ID:${git.commit.id.describe.withoutdirty})</version>"
+        replace: "<version>DEV-BUILD (COMMIT ID: ${git.commit.id.abbrev})</version>"
         include: "pom.xml"
     - name: Cache Maven packages
       uses: actions/cache@v2

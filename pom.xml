@@ -101,21 +101,6 @@
                 </executions>
                 <configuration>
                     <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
-                    <prefix>git</prefix>
-                    <skipPoms>false</skipPoms>
-                    <verbose>false</verbose>
-                    <injectAllReactorProjects>true</injectAllReactorProjects>
-                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                    <evaluateOnCommit>HEAD</evaluateOnCommit>
-                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
-                    <replacementProperties>
-                        <replacementProperty>
-                            <property>git.commit.id.describe</property>
-                            <propertyOutputSuffix>withoutdirty</propertyOutputSuffix>
-                            <token>^(.*?)(-dirty)?$</token>
-                            <value>$1</value>
-                        </replacementProperty>
-                    </replacementProperties>
                 </configuration>
             </plugin>
             <plugin>
