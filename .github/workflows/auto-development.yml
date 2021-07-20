@@ -25,6 +25,12 @@ jobs:
         find: "/<version>.*<\/version>/gm"
         replace: "<version>DEV-BUILD (COMMIT ID: ${git.commit.id.describe-short})"
         include: "pom.xml"
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
       run: mvn clean package
     - uses: "marvinpinto/action-automatic-releases@latest"

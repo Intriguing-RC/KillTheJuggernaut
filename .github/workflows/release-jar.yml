@@ -22,12 +22,21 @@ jobs:
         with:
           java-version: '16'
           distribution: 'adopt'
+<<<<<<< HEAD
       - name: Find and Replace
         uses: jacobtomlinson/gha-find-replace@master
         with:
           find: "/<version>.*<\/version>/gm"
           replace: "<version>v${{ github.event.inputs.version }} (COMMIT ID: ${git.commit.id.describe-short})"
           include: "pom.xml"
+=======
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+>>>>>>> 50773bbbb0827ac0fc8a9e429ef132bf56e01d4a
       - name: Build with Maven
         run: mvn clean package
       - uses: "marvinpinto/action-automatic-releases@latest"
@@ -35,6 +44,6 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "v${{ github.event.inputs.version }}"
           prerelease: false
-          title: "Version ${{ github.event.inputs.logLevel }}"
+          title: "Version ${{ github.event.inputs.version }}"
           files: |
             target/JuggernautEvent.jar
