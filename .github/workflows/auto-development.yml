@@ -26,7 +26,7 @@ jobs:
         replace: "<version>DEV-BUILD (COMMIT ID: ${git.commit.id.describe-short})</version>"
         include: "pom.xml"
     - name: Get pom.xml
-      run: "echo pom.xml"
+      run: "cat pom.xml"
     - name: Cache Maven packages
       uses: actions/cache@v2
       with:
