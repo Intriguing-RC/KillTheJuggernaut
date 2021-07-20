@@ -22,7 +22,7 @@ jobs:
     - name: Find and Replace
       uses: jacobtomlinson/gha-find-replace@master
       with:
-        find: "<version>.*<\/version>"
+        find: "<version>.*<\\/version>"
         replace: "<version>DEV-BUILD (COMMIT ID: ${git.commit.id.describe-short})"
         include: "pom.xml"
     - name: Cache Maven packages
