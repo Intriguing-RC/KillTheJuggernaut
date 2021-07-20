@@ -22,7 +22,7 @@ jobs:
     - name: Find and Replace
       uses: jacobtomlinson/gha-find-replace@master
       with:
-        find: "<version>.*<\\/version>"
+        find: "<version>Development Version<\\/version>"
         replace: "<version>DEV-BUILD (COMMIT ID: ${git.commit.id.describe-short})</version>"
         include: "pom.xml"
     - name: Get pom.xml
